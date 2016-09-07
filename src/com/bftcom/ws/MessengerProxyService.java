@@ -13,7 +13,5 @@ import java.util.List;
 public interface MessengerProxyService {
   void sendMessage(String text);
 
-  List<Messenger> getMessagers();
-
-  int sendMessage(String messagerId, String contactId, Message message);
+  List<Messenger> getMessangers();
 }
