@@ -7,8 +7,9 @@ public class TextMessage extends Message {
 
     private String messageBody;
 
-    public TextMessage() {
+    public TextMessage(String messageText) {
         super(MESSAGE_TYPE_TEXT);
+        this.messageBody = messageText;
     }
 
     public String getMessageBody() {

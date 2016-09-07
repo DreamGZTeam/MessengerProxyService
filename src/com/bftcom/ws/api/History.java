@@ -7,18 +7,28 @@ import java.util.Date;
  */
 public class History implements Comparable {
 
-    Date date;
+    public static final int DIRECTION_MESSAGE_INCOMING = 0;
+    public static final int DIRECTION_MESSAGE_OUTGOING = 1;
 
-    public History(Date date) {
+
+    private Date date;
+    private int direction;
+
+    public History(Date date, int direction) {
+        this.direction = direction;
         this.date = date;
     }
 
     public History() {
-        this(new Date());
+        this.date = new Date();
+        this.direction = DIRECTION_MESSAGE_OUTGOING;
     }
 
     @Override
     public int compareTo(Object o) {
-       return ((History)o).date.compareTo(this.date);
+        if (((History)o).date.compareTo(this.date) != 0)
+            return ((History)o).date.compareTo(this.date);
+        else
+            return new Integer(((History)o).direction).compareTo(this.direction);
     }
 }

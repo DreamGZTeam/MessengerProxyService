@@ -1,5 +1,7 @@
 package com.bftcom.bots;
 
+import com.bftcom.bots.intf.iBot;
+import com.bftcom.ws.api.TextMessage;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -8,7 +10,9 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.logging.BotLogger;
 
-public class TelegramBot extends TelegramLongPollingBot {
+import static com.bftcom.ws.api.Message.MESSAGE_TYPE_TEXT;
+
+public class TelegramBot extends TelegramLongPollingBot implements iBot {
   public static final String BOT_USERNAME = "GZGZBot";
   public static final String BOT_TOKEN = "181000542:AAHLrSjDPKhJQUe8AWrC3RZjQcXIT46_Y2E";
 
@@ -73,4 +77,27 @@ public class TelegramBot extends TelegramLongPollingBot {
   public String getBotToken() {
     return BOT_TOKEN;
   }
+
+  @Override
+  public String getProtocol() {
+    return "Telegram";
+  }
+
+  @Override
+  public void sendMessage(String chatId, com.bftcom.ws.api.Message msg) {
+    SendMessage sendMessageRequest = new SendMessage();
+    sendMessageRequest.setChatId(chatId);
+    switch (msg.getMessageType()) {
+      case MESSAGE_TYPE_TEXT:
+        sendMessageRequest.setText(((TextMessage) msg).getMessageBody());
+        break;
+    }
+    try {
+      sendMessage(sendMessageRequest);
+    } catch (TelegramApiException e) {
+      //do some error handling
+    }
+  }
+
+
 }

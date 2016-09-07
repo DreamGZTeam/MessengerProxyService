@@ -9,10 +9,8 @@ public class Contact {
 
     private String alias;
 
-    private Chat chat;
-
-    public Contact(String id) {
+    public Contact(String id, String alias) {
         this.id = id;
-        chat = new Chat();
+        this.alias = alias;
     }
 }
