@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="MessengerProxyService:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/MessengerProxyService_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="MessengerProxyService/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="MessengerProxyService" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="telegrambots-2.3.5-jar-with-dependencies" />
+          <element id="library" level="project" name="apache-cxf-3.1.7" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
