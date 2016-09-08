@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+  <script type="text/javascript" src="{% static 'kpi/jquery/js/jquery-3.1.0.min.js' %} "></script>
+  <script type="text/javascript" src="{% static 'kpi/bootstrap/js/bootstrap.min.js' %} "></script>
+  
+  <link type="text/css" href="{% static 'kpi/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen"> 
+  <link type="text/css" href="{% static 'kpi/css/style.css' %}" rel="stylesheet" media="screen"/> 
+  <link type="text/css" href="{% static 'kpi/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet" media="screen"/> 
+
+  <title>Dashboard</title>
+
+</head>
+
+<body style="background-color: #2F363C; font-family:Arial;">
+  {% include "header.html" %}
+  <div class='navbar-custom'>
+    {% block navbar %}
+    {% include "data_bar.html" %}
+    {% endblock navbar %}
+  </div>
+  <div class='landing-page'>
+    {% block date %} {% endblock date %}
+    {% for ss in ar %}
+    <div>
+    <div class='col-md-3 col-md-offset-1 img-rounded' style="background-color: #00A0CF">
+        {% block data %} 
+        
+        {% include "base_data.html" %} 
+        
+        {% endblock data %}
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
