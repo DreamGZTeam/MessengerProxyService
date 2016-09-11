@@ -31,4 +31,12 @@ public class History implements Comparable {
         else
             return new Integer(((History)o).direction).compareTo(this.direction);
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
 }

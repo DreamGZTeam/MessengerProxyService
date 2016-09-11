@@ -1,8 +1,6 @@
 package com.bftcom.ws.api;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by d.dyldaev on 07.09.16.
@@ -14,12 +12,6 @@ public class Chat {
     }
 
     private String id;
-
-    private String contactId;
-
-    public String getContactId() {
-        return contactId;
-    }
 
     private Map<History, Message> history = new HashMap<>();
 
@@ -37,5 +29,21 @@ public class Chat {
 
     public String getId() {
         return id;
+    }
+
+    public void mergeChats(Chat aChat){
+        history.putAll(aChat.getHistory());
+    }
+
+    public List<String> toList(){
+        List<String> retVal = new ArrayList<>();
+        history.keySet().forEach(h -> {
+                retVal.add(new StringBuilder()
+                    .append(h.getDate().toString())
+                    .append(";")
+                    .append(h.getDirection())
+                    .append(((TextMessage)history.get(h)).getText()).toString());
+            });
+        return retVal;
     }
 }

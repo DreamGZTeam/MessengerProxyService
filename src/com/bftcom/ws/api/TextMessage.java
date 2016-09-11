@@ -5,18 +5,14 @@ package com.bftcom.ws.api;
  */
 public class TextMessage extends Message {
 
-    private String messageBody;
+    private String text;
 
     public TextMessage(String messageText) {
         super(MESSAGE_TYPE_TEXT);
-        this.messageBody = messageText;
+        this.text = messageText;
     }
 
-    public String getMessageBody() {
-        return messageBody;
-    }
-
-    public void setMessageBody(String messageBody) {
-        this.messageBody = messageBody;
+    public String getText() {
+        return text;
     }
 }

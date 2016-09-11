@@ -1,6 +1,10 @@
 package com.bftcom.bots;
 
 import com.bftcom.bots.intf.iBot;
+import com.bftcom.bots.intf.iMessenger;
+import com.bftcom.ws.api.Chat;
+import com.bftcom.ws.api.Contact;
+import com.bftcom.ws.api.Messenger;
 import com.bftcom.ws.api.TextMessage;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
@@ -10,12 +14,16 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import java.util.Date;
+
+import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
 import static com.bftcom.ws.api.Message.MESSAGE_TYPE_TEXT;
 
 public class TelegramBot extends TelegramLongPollingBot implements iBot {
   public static final String BOT_USERNAME = "GZGZBot";
   public static final String BOT_TOKEN = "181000542:AAHLrSjDPKhJQUe8AWrC3RZjQcXIT46_Y2E";
 
+  private iMessenger msgr;
   private static TelegramBot telegramBot;
 
   public static void main(String[] args) {
@@ -56,21 +64,30 @@ public class TelegramBot extends TelegramLongPollingBot implements iBot {
   @Override
   public void onUpdateReceived(Update update) {
     if (update.hasMessage()) {
-      Message message = update.getMessage();
-      SendMessage sendMessageRequest = new SendMessage();
-      sendMessageRequest.setChatId(message.getChatId().toString());
-      sendMessageRequest.setText("ЗБС");
-      try {
-        sendMessage(sendMessageRequest); //at the end, so some magic and send the message ;)
-      } catch (TelegramApiException e) {
-        //do some error handling
-      }
+      msgr.onUpdate(transformUpdateObject(update));
     }
+  }
+
+  private com.bftcom.ws.api.Update transformUpdateObject(Update update){
+    if (update.getMessage().getText() == null || update.getMessage().getText().equals(""))
+      return null;
+    Contact contact = new Contact(update.getMessage().getContact().getUserID().toString(),
+                                  update.getMessage().getChat().getUserName(),
+                                  new Chat(update.getMessage().getChatId().toString()));
+    contact.getChat().addMessage(new com.bftcom.ws.api.TextMessage(update.getMessage().getText()),
+                                 new Date(update.getMessage().getDate()),
+                                 DIRECTION_MESSAGE_INCOMING);
+    return new com.bftcom.ws.api.Update(contact);
   }
 
   @Override
   public String getBotUsername() {
     return BOT_USERNAME;
+  }
+
+  @Override
+  public void setMessenger(Messenger msgr) {
+    this.msgr = msgr;
   }
 
   @Override
@@ -89,7 +106,7 @@ public class TelegramBot extends TelegramLongPollingBot implements iBot {
     sendMessageRequest.setChatId(chatId);
     switch (msg.getMessageType()) {
       case MESSAGE_TYPE_TEXT:
-        sendMessageRequest.setText(((TextMessage) msg).getMessageBody());
+        sendMessageRequest.setText(((TextMessage) msg).getText());
         break;
     }
     try {

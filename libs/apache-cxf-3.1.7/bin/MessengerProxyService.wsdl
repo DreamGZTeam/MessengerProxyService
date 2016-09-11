@@ -1,4 +1,6 @@
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.bftcom.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="MessengerProxyServiceImplService" targetNamespace="http://ws.bftcom.com/">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.bftcom.com/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  name="MessengerProxyServiceImplService" targetNamespace="http://ws.bftcom.com/">
 <wsdl:types>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.bftcom.com/" elementFormDefault="unqualified" targetNamespace="http://ws.bftcom.com/" version="1.0">
 <xs:element name="sendMessage" type="tns:sendMessage"/>
