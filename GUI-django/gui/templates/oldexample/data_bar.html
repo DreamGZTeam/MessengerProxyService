@@ -1,0 +1,38 @@
+<div class='navbar-line'>
+  <div class="row">
+    
+    <div class="col-md-1">
+    <div class='month'> Месяц: </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class='dropdown'>
+      <a href="#" data-toggle="dropdown"> {{select_month}} <b class="caret"> </b> </a> 
+        <ul class="dropdown-menu">
+        {% for month in all_month %}
+        {% if month != select_month %}
+          <li><a href="{% url 'kpi:month_detail' monthz=month %}" name="change_month"> {{month}} </a> </li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+   
+  <div class="col-md-1">
+  <div class='year'> Год: </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"> {{select_year}} <b class="caret"> </b> </a>
+        <ul class="dropdown-menu">
+          {% for year in all_year %}
+          {% if year != select_year %}
+          <li><a href="{% url 'kpi:month_year_detail' monthz=month yearz=year %}"> {{year}} </a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% block data %}
+  <div class='row'>
+  <div class='col-md-5 col-md-offset-3'>
+    <!--<img class='img-rounded center-block' src="{% static 'kpi/img/Car_group_2.PNG' %}"></img> -->
+    <i class="col-md-offset-3 fa fa-car fa-3x" aria-hidden="true"></i>
+  </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-2 col-md-offset-1'><p>{{ss.3}}</p></div>   <!-- красный или зеленый круг -->
+    <div class='col-md-2 col-md-offset-2'><p>{{ss.2}}</p></div>
+    <div class='col-md-2 col-md-offset-1'><p>значение2</p></div>
+  </div>
+  
+  <div class="row">
+    <div class='col-md-2 col-md-offset-1'><p>предыдущий месяц</p></div>
+    <div class='col-md-2 col-md-offset-2'><p></p></div>         
+    <div class='col-md-2 col-md-offset-1'><p>среднее значение</p></div>
+  </div>
+  <div class="row">
+  <div class='col-md-4 col-md-offset-3'><p>Результаты</p></div>
+  </div>
+  <div class="row">
+  <div class="col-md-4 col-md-offset-3"><p>Car ID = {{ss.0}}</p></div>
+
+{% endblock %}

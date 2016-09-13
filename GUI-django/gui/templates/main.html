@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+  <script type="text/javascript" src="{% static 'gui/jquery/js/jquery-3.1.0.min.js' %} "></script>
+  <script type="text/javascript" src="{% static 'gui/bootstrap/js/bootstrap.min.js' %} "></script>
+  
+  <link type="text/css" href="{% static 'gui/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen"> 
+  <link type="text/css" href="{% static 'gui/css/style.css' %}" rel="stylesheet" media="screen"/> 
+  <link type="text/css" href="{% static 'gui/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet" media="screen"/> 
+
+  <title>Bot GUI</title>
+
+</head>
+<body>
+  <div class='row' style='height:4%;'>
+    <div class='com-md-12'> <p> Navbar </p> </div>
+  </div>
+  <div class='row' style="height:96%;">
+    <div class='col-md-1' style="height:100%;"></div>
+    
+    <div class='col-md-3 bg-primary' style="height:100%; color:black"> 
+      {% block contacts %} {% include '_contact_list.html' %} {% endblock %}
+      <p style='color:black;'> users contacts  </p> 
+      <p> Contact 1 </p> 
+      <p> Contact 2 </p> 
+      <p> Contact 3 </p>
+    </div>
+    
+    <div class='col-md-7 bg-info' style="height:100%;"> 
+      {% block history %} {% include '_contact_history.html' %} {% endblock %}
+      <p style='color:black;'> chat history </p>
+    </div>
+    
+    <div class='col-md-1' style="height:100%;">
+      <form
+    </div>
+  </div>
+</body>
+</html>
