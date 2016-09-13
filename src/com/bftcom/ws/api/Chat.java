@@ -42,6 +42,7 @@ public class Chat {
                     .append(h.getDate().toString())
                     .append(";")
                     .append(h.getDirection())
+                    .append(";")
                     .append(((TextMessage)history.get(h)).getText()).toString());
             });
         return retVal;

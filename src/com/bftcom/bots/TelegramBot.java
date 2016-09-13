@@ -69,10 +69,13 @@ public class TelegramBot extends TelegramLongPollingBot implements iBot {
   }
 
   private com.bftcom.ws.api.Update transformUpdateObject(Update update){
-    if (update.getMessage().getText() == null || update.getMessage().getText().equals(""))
+    if (update.getMessage().getText() == null || update.getMessage().getText().equals("") ||
+        update.getMessage().getFrom().getId() == null)
       return null;
-    Contact contact = new Contact(update.getMessage().getContact().getUserID().toString(),
-                                  update.getMessage().getChat().getUserName(),
+    Contact contact = new Contact(update.getMessage().getFrom().getId().toString(),
+                                  update.getMessage().getFrom().getFirstName(),
+                                  update.getMessage().getFrom().getLastName(),
+                                  update.getMessage().getFrom().getUserName(),
                                   new Chat(update.getMessage().getChatId().toString()));
     contact.getChat().addMessage(new com.bftcom.ws.api.TextMessage(update.getMessage().getText()),
                                  new Date(update.getMessage().getDate()),

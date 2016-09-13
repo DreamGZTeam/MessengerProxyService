@@ -51,7 +51,9 @@ public class Messenger implements iMessenger {
             retVal.add(new StringBuilder()
             .append(c.getId())
             .append(";")
-            .append(c.getUserName()).toString());
+            .append(c.getFirstName())
+            .append(" ")
+            .append(c.getLastName()).toString());
         });
         return retVal;
     }
@@ -72,6 +74,8 @@ public class Messenger implements iMessenger {
         if (contact == null) {
             contacts.put(update.getContact().getId(),
                             new Contact(update.getContact().getId(),
+                                        update.getContact().getFirstName(),
+                                        update.getContact().getLastName(),
                                         update.getContact().getUserName(),
                                         update.getContact().getChat()));
         }

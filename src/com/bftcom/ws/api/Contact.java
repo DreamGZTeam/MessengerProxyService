@@ -9,10 +9,16 @@ public class Contact {
 
     private String userName;
 
+    private String firstName;
+
+    private String lastName;
+
     private Chat chat;
 
-    public Contact(String id, String userName, Chat chat) {
+    public Contact(String id, String firstName, String lastName, String userName, Chat chat) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userName = userName;
         this.chat = chat;
     }
@@ -23,6 +29,14 @@ public class Contact {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public Chat getChat() {
