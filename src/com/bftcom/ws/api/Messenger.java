@@ -1,20 +1,20 @@
 package com.bftcom.ws.api;
 
-import com.bftcom.bots.intf.iBot;
-import com.bftcom.bots.intf.iMessenger;
+import com.bftcom.bots.intf.IBot;
+import com.bftcom.bots.intf.IMessenger;
 
 import java.util.*;
+
+import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
 
 /**
  * Created by d.dyldaev on 07.09.16.
  */
-public class Messenger implements iMessenger {
+public class Messenger implements IMessenger {
 
     private String name;
-
-    private iBot bot;
-
-    private Map<String, Contact> contacts = new HashMap<>();
+    private IBot bot;
+    private Map<Long, Contact> contacts = new HashMap<>();
 
     public String getName() {
         return name;
@@ -24,7 +24,7 @@ public class Messenger implements iMessenger {
         return bot != null ? bot.getProtocol() : "";
     }
 
-    public Messenger(iBot bot, String name) {
+    public Messenger(IBot bot, String name) {
         this.name = name;
         if (bot != null) {
             this.bot = bot;
@@ -70,17 +70,21 @@ public class Messenger implements iMessenger {
     public void onUpdate(Update update) {
         if (update ==  null)
             return;
-        Contact contact = contacts.get(update.getContact().getId());
+        Contact contact = contacts.get(update.getContactId());
         if (contact == null) {
-            contacts.put(update.getContact().getId(),
-                            new Contact(update.getContact().getId(),
-                                        update.getContact().getFirstName(),
-                                        update.getContact().getLastName(),
-                                        update.getContact().getUserName(),
-                                        update.getContact().getChat()));
-        }
-        else{
-            contact.getChat().mergeChats(update.getContact().getChat());
+            contact = new Contact(update.getContactId().toString(),
+                update.getFirstName(),
+                update.getLastName(),
+                update.getUserName(),
+                update.getChatId());
+            contacts.put(update.getContactId(), contact);
+            contact.getChat().addMessage(new TextMessage(update.getText()),
+                new Date(update.getDate()),
+                DIRECTION_MESSAGE_INCOMING);
+        } else {
+            contact.getChat().addMessage(new TextMessage(update.getText()),
+                new Date(update.getDate()),
+                DIRECTION_MESSAGE_INCOMING);
         }
     }
 

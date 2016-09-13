@@ -6,21 +6,17 @@ package com.bftcom.ws.api;
 public class Contact {
 
     private String id;
-
     private String userName;
-
     private String firstName;
-
     private String lastName;
-
     private Chat chat;
 
-    public Contact(String id, String firstName, String lastName, String userName, Chat chat) {
+    public Contact(String id, String firstName, String lastName, String userName, Long chatId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.chat = chat;
+        this.chat = new Chat(chatId.toString());
     }
 
     public String getId() {

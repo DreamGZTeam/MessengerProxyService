@@ -6,7 +6,7 @@ import com.bftcom.ws.api.Messenger;
 /**
  * Created by d.dyldaev on 07.09.16.
  */
-public interface iBot {
+public interface IBot {
     void setMessenger(Messenger msgr);
     String getBotToken();
     String getProtocol();

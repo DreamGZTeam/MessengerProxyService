@@ -7,13 +7,12 @@ import java.util.*;
  */
 public class Chat {
 
+    private String id;
+    private Map<History, Message> history = new HashMap<>();
+
     public Chat(String id) {
         this.id = id;
     }
-
-    private String id;
-
-    private Map<History, Message> history = new HashMap<>();
 
     public Map<History, Message> getHistory() {
         return history;
@@ -38,12 +37,11 @@ public class Chat {
     public List<String> toList(){
         List<String> retVal = new ArrayList<>();
         history.keySet().forEach(h -> {
-                retVal.add(new StringBuilder()
-                    .append(h.getDate().toString())
-                    .append(";")
-                    .append(h.getDirection())
-                    .append(";")
-                    .append(((TextMessage)history.get(h)).getText()).toString());
+                retVal.add(h.getDate().toString() +
+                    ";" +
+                    h.getDirection() +
+                    ";" +
+                    ((TextMessage) history.get(h)).getText());
             });
         return retVal;
     }

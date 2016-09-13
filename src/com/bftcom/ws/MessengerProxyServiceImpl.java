@@ -1,7 +1,6 @@
 package com.bftcom.ws;
 
 import com.bftcom.bots.TelegramBot;
-import com.bftcom.bots.intf.iBot;
 import com.bftcom.ws.api.Messenger;
 
 import javax.jws.WebService;
@@ -43,10 +42,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
       .filter(m -> m.getProtocol().equals(protocol))
       .collect(Collectors.toList())
       .forEach(msgr -> {
-        retVal.add(
-                new StringBuilder().append(msgr.getId())
-                        .append(";")
-                        .append(msgr.getName()).toString());
+        retVal.add(msgr.getId() + ";" + msgr.getName());
       });
      return retVal;
   }

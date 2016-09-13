@@ -1,29 +1,23 @@
 package com.bftcom.bots;
 
-import com.bftcom.bots.intf.iBot;
-import com.bftcom.bots.intf.iMessenger;
-import com.bftcom.ws.api.Chat;
-import com.bftcom.ws.api.Contact;
+import com.bftcom.bots.intf.IBot;
+import com.bftcom.bots.intf.IMessenger;
 import com.bftcom.ws.api.Messenger;
 import com.bftcom.ws.api.TextMessage;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.logging.BotLogger;
 
-import java.util.Date;
-
-import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
 import static com.bftcom.ws.api.Message.MESSAGE_TYPE_TEXT;
 
-public class TelegramBot extends TelegramLongPollingBot implements iBot {
+public class TelegramBot extends TelegramLongPollingBot implements IBot {
   public static final String BOT_USERNAME = "GZGZBot";
   public static final String BOT_TOKEN = "181000542:AAHLrSjDPKhJQUe8AWrC3RZjQcXIT46_Y2E";
 
-  private iMessenger msgr;
+  private IMessenger msgr;
   private static TelegramBot telegramBot;
 
   public static void main(String[] args) {
@@ -31,7 +25,7 @@ public class TelegramBot extends TelegramLongPollingBot implements iBot {
     try {
       TelegramBot telegramBot = new TelegramBot();
       telegramBotsApi.registerBot(telegramBot);
-      telegramBot.sendMessage("123");
+//      telegramBot.sendMessage("123");
     } catch (TelegramApiException e) {
       BotLogger.error("Bot register error", e);
     }
@@ -72,15 +66,15 @@ public class TelegramBot extends TelegramLongPollingBot implements iBot {
     if (update.getMessage().getText() == null || update.getMessage().getText().equals("") ||
         update.getMessage().getFrom().getId() == null)
       return null;
-    Contact contact = new Contact(update.getMessage().getFrom().getId().toString(),
-                                  update.getMessage().getFrom().getFirstName(),
-                                  update.getMessage().getFrom().getLastName(),
-                                  update.getMessage().getFrom().getUserName(),
-                                  new Chat(update.getMessage().getChatId().toString()));
-    contact.getChat().addMessage(new com.bftcom.ws.api.TextMessage(update.getMessage().getText()),
-                                 new Date(update.getMessage().getDate()),
-                                 DIRECTION_MESSAGE_INCOMING);
-    return new com.bftcom.ws.api.Update(contact);
+    com.bftcom.ws.api.Update wsUpdate = new com.bftcom.ws.api.Update();
+    wsUpdate.setContactId(update.getMessage().getFrom().getId().longValue());
+    wsUpdate.setFirstName(update.getMessage().getFrom().getFirstName());
+    wsUpdate.setLastName(update.getMessage().getFrom().getLastName());
+    wsUpdate.setUserName(update.getMessage().getFrom().getUserName());
+    wsUpdate.setChatId(update.getMessage().getChatId());
+    wsUpdate.setText(update.getMessage().getText());
+    wsUpdate.setDate(update.getMessage().getDate());
+    return wsUpdate;
   }
 
   @Override

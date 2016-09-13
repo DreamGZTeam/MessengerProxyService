@@ -10,7 +10,6 @@ public class History implements Comparable {
     public static final int DIRECTION_MESSAGE_INCOMING = 0;
     public static final int DIRECTION_MESSAGE_OUTGOING = 1;
 
-
     private Date date;
     private int direction;
 
