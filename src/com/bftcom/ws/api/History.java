@@ -25,10 +25,8 @@ public class History implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        if (((History)o).date.compareTo(this.date) != 0)
-            return ((History)o).date.compareTo(this.date);
-        else
-            return new Integer(((History)o).direction).compareTo(this.direction);
+        return ((History)o).date.compareTo(this.date);
+
     }
 
     public Date getDate() {

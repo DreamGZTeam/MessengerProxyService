@@ -8,7 +8,7 @@ import java.util.*;
 public class Chat {
 
     private String id;
-    private Map<History, Message> history = new HashMap<>();
+    private Map<History, Message> history = new TreeMap<>();
 
     public Chat(String id) {
         this.id = id;
@@ -28,10 +28,6 @@ public class Chat {
 
     public String getId() {
         return id;
-    }
-
-    public void mergeChats(Chat aChat){
-        history.putAll(aChat.getHistory());
     }
 
     public List<String> toList(){

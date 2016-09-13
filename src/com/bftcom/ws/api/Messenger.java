@@ -3,6 +3,7 @@ package com.bftcom.ws.api;
 import com.bftcom.bots.intf.IBot;
 import com.bftcom.bots.intf.IMessenger;
 
+import java.time.Instant;
 import java.util.*;
 
 import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
@@ -70,7 +71,7 @@ public class Messenger implements IMessenger {
     public void onUpdate(Update update) {
         if (update ==  null)
             return;
-        Contact contact = contacts.get(update.getContactId());
+        Contact contact = contacts.get(update.getContactId().toString());
         if (contact == null) {
             contact = new Contact(update.getContactId().toString(),
                 update.getFirstName(),
@@ -79,11 +80,11 @@ public class Messenger implements IMessenger {
                 update.getChatId());
             contacts.put(update.getContactId().toString(), contact);
             contact.getChat().addMessage(new TextMessage(update.getText()),
-                new Date(update.getDate()),
+                Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
                 DIRECTION_MESSAGE_INCOMING);
         } else {
             contact.getChat().addMessage(new TextMessage(update.getText()),
-                new Date(update.getDate()),
+                Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
                 DIRECTION_MESSAGE_INCOMING);
         }
     }
