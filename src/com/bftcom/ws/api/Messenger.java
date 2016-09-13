@@ -14,7 +14,7 @@ public class Messenger implements IMessenger {
 
     private String name;
     private IBot bot;
-    private Map<Long, Contact> contacts = new HashMap<>();
+    private Map<String, Contact> contacts = new HashMap<>();
 
     public String getName() {
         return name;
@@ -77,7 +77,7 @@ public class Messenger implements IMessenger {
                 update.getLastName(),
                 update.getUserName(),
                 update.getChatId());
-            contacts.put(update.getContactId(), contact);
+            contacts.put(update.getContactId().toString(), contact);
             contact.getChat().addMessage(new TextMessage(update.getText()),
                 new Date(update.getDate()),
                 DIRECTION_MESSAGE_INCOMING);
