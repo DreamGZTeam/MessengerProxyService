@@ -1,6 +1,7 @@
 package com.bftcom.ws;
 
 import com.bftcom.bots.TelegramBot;
+import com.bftcom.ws.api.Contact;
 import com.bftcom.ws.api.Messenger;
 
 import javax.jws.WebService;
@@ -36,15 +37,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public Set<String> getMessengers(String protocol) {
-    Set<String> retVal = new HashSet<>();
-     messengers.values().stream()
-      .filter(m -> m.getProtocol().equals(protocol))
-      .collect(Collectors.toList())
-      .forEach(msgr -> {
-        retVal.add(msgr.getId() + ";" + msgr.getName());
-      });
-     return retVal;
+  public List<Messenger> getMessengers(String protocol) {
+    return messengers.values().stream().collect(Collectors.toList());
   }
 
   @Override
@@ -53,7 +47,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public Set<String> getContacts(String messengerId) {
+  public List<Contact> getContacts(String messengerId) {
     return getMessenger(messengerId).getContacts();
 
   }

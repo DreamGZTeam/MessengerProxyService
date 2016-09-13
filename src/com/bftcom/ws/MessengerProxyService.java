@@ -1,5 +1,8 @@
 package com.bftcom.ws;
 
+import com.bftcom.ws.api.Contact;
+import com.bftcom.ws.api.Messenger;
+
 import javax.jws.WebService;
 import java.util.List;
 import java.util.Set;
@@ -14,15 +17,21 @@ public interface MessengerProxyService {
   void sendTextMessage(String messengerId, String contactId, String text);
 
   /* Возвращает список доступных messenger'ов для выбранного протокола в формате:
-  * messengerId;messengerName */
-  Set<String> getMessengers(String protocol);
+    <name>Имя messenger'a</name>
+    <id>Идентификатор messenger'a</id>
+  */
+  List<Messenger> getMessengers(String protocol);
 
   /* Возвращает список доступных протоколов */
   Set<String> getProtocols();
 
-  /* Возвращает список контактов для заданного messrnger'а в формате:
-  *  userId;userName */
-  Set<String> getContacts(String messengerId);
+  /* Возвращает список контактов для заданного messenger'а в формате:
+    <id>Идентификатор контакта</id>
+    <userName>userName</userName>
+    <firstName>firstName</firstName>
+    <lastName>lastName</lastName>
+  */
+  List<Contact> getContacts(String messengerId);
 
   /* Возвращает историю переписки с конкретным пользователем в формате:
   *  Время сообщения;направление сообщения(исходящее\входящее);текс сообщения */

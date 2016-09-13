@@ -3,17 +3,20 @@ package com.bftcom.ws.api;
 import com.bftcom.bots.intf.IBot;
 import com.bftcom.bots.intf.IMessenger;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
 
 /**
  * Created by d.dyldaev on 07.09.16.
  */
-public class Messenger implements IMessenger {
+public class Messenger implements IMessenger, Serializable{
 
-    private String name;
+    public String name;
+    public String id;
     private IBot bot;
     private Map<String, Contact> contacts = new HashMap<>();
 
@@ -30,12 +33,13 @@ public class Messenger implements IMessenger {
         if (bot != null) {
             this.bot = bot;
             bot.setMessenger(this);
+            id = bot.getBotToken();
         }
 
     }
 
     public String getId() {
-        return bot.getBotToken();
+        return id;
     }
 
     public void sendTextMessage(String contactId, String messageText){
@@ -45,18 +49,8 @@ public class Messenger implements IMessenger {
         bot.sendMessage(chat.getId(), message);
     }
 
-    public Set<String> getContacts() {
-        Set<String> retVal = new HashSet<>();
-        contacts.keySet().forEach(cKey -> {
-            Contact c = contacts.get(cKey);
-            retVal.add(new StringBuilder()
-            .append(c.getId())
-            .append(";")
-            .append(c.getFirstName())
-            .append(" ")
-            .append(c.getLastName()).toString());
-        });
-        return retVal;
+    public List<Contact> getContacts() {
+        return contacts.values().stream().collect(Collectors.toList());
     }
 
     public Chat getChatForContact(String contactId){

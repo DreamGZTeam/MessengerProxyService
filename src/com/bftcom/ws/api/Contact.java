@@ -1,14 +1,16 @@
 package com.bftcom.ws.api;
 
+import java.io.Serializable;
+
 /**
  * Created by d.dyldaev on 07.09.16.
  */
-public class Contact {
+public class Contact implements Serializable {
 
-    private String id;
-    private String userName;
-    private String firstName;
-    private String lastName;
+    public String id;
+    public String userName;
+    public String firstName;
+    public String lastName;
     private Chat chat;
 
     public Contact(String id, String firstName, String lastName, String userName, Long chatId) {
