@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.bftcom.ws.api.History.DIRECTION_MESSAGE_INCOMING;
+import static com.bftcom.ws.api.Message.DIRECTION_MESSAGE_INCOMING;
 
 /**
  * Created by d.dyldaev on 07.09.16.
@@ -44,7 +44,7 @@ public class Messenger implements IMessenger, Serializable{
 
     public void sendTextMessage(String contactId, String messageText){
         Chat chat = getChatForContact(contactId);
-        Message message = new TextMessage(messageText);
+        TextMessage message = new TextMessage(messageText);
         chat.addMessage(message);
         bot.sendMessage(chat.getId(), message);
     }
@@ -73,17 +73,17 @@ public class Messenger implements IMessenger, Serializable{
                 update.getUserName(),
                 update.getChatId());
             contacts.put(update.getContactId().toString(), contact);
-            contact.getChat().addMessage(new TextMessage(update.getText()),
-                Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
-                DIRECTION_MESSAGE_INCOMING);
+            contact.getChat().addMessage(new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
+                                                         DIRECTION_MESSAGE_INCOMING,
+                                                         update.getText()));
         } else {
-            contact.getChat().addMessage(new TextMessage(update.getText()),
-                Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
-                DIRECTION_MESSAGE_INCOMING);
+            contact.getChat().addMessage(new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
+                                                         DIRECTION_MESSAGE_INCOMING,
+                                                         update.getText()));
         }
     }
 
-    public List<String> getHistory(String contactId){
-        return getChatForContact(contactId).toList();
+    public Set<TextMessage> getHistory(String contactId){
+        return getChatForContact(contactId).getHistory();
     }
 }

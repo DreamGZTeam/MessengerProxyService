@@ -2,6 +2,7 @@ package com.bftcom.ws;
 
 import com.bftcom.ws.api.Contact;
 import com.bftcom.ws.api.Messenger;
+import com.bftcom.ws.api.TextMessage;
 
 import javax.jws.WebService;
 import java.util.List;
@@ -34,6 +35,9 @@ public interface MessengerProxyService {
   List<Contact> getContacts(String messengerId);
 
   /* Возвращает историю переписки с конкретным пользователем в формате:
-  *  Время сообщения;направление сообщения(исходящее\входящее);текс сообщения */
-  List<String> getHistory(String messengerId, String contactId);
+    <date>date</date>
+    <direction>direction</direction>
+    <text>message text</text>
+  */
+  Set<TextMessage> getHistory(String messengerId, String contactId);
 }

@@ -2,7 +2,9 @@ package com.bftcom.ws;
 
 import com.bftcom.bots.TelegramBot;
 import com.bftcom.ws.api.Contact;
+import com.bftcom.ws.api.Message;
 import com.bftcom.ws.api.Messenger;
+import com.bftcom.ws.api.TextMessage;
 
 import javax.jws.WebService;
 import java.util.*;
@@ -53,7 +55,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public List<String> getHistory(String messengerId, String contactId) {
+  public Set<TextMessage> getHistory(String messengerId, String contactId) {
     return getMessenger(messengerId).getHistory(contactId);
   }
 
