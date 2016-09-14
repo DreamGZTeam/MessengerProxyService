@@ -2,12 +2,14 @@ package com.bftcom.ws;
 
 import com.bftcom.bots.TelegramBot;
 import com.bftcom.ws.api.Contact;
-import com.bftcom.ws.api.Message;
 import com.bftcom.ws.api.Messenger;
 import com.bftcom.ws.api.TextMessage;
 
 import javax.jws.WebService;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

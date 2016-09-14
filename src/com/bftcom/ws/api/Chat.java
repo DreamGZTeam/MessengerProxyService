@@ -1,6 +1,7 @@
 package com.bftcom.ws.api;
 
-import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by d.dyldaev on 07.09.16.
