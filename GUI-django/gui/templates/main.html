@@ -18,22 +18,20 @@
 </head>
 <body>
   <div class='row' style='height:4%;'>
-    <div class='com-md-12'> <p> Navbar </p> </div>
+    <div class='com-md-12'> 
+    {% block bots %} {% include '_bot_list.html' %} {% endblock %}
+    </div>
   </div>
+  
   <div class='row' style="height:96%;">
     <div class='col-md-1' style="height:100%;"></div>
     
     <div class='col-md-3 bg-primary' style="height:100%; color:black"> 
       {% block contacts %} {% include '_contact_list.html' %} {% endblock %}
-      <p style='color:black;'> users contacts  </p> 
-      <p> Contact 1 </p> 
-      <p> Contact 2 </p> 
-      <p> Contact 3 </p>
     </div>
     
-    <div class='col-md-7 bg-info' style="height:100%;"> 
+    <div class='col-md-7 bg-info' style="height:100%;">
       {% block history %} {% include '_contact_history.html' %} {% endblock %}
-      <p style='color:black;'> chat history </p>
     </div>
     
     <div class='col-md-1' style="height:100%;">
