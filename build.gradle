@@ -1,7 +1,7 @@
 apply plugin: 'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'jetty'
 
 project.ext {
   springVersion = "4.1.9.RELEASE"
