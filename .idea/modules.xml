@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MessengerProxyService.iml" filepath="$PROJECT_DIR$/MessengerProxyService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MessengerProxyService.iml" filepath="$PROJECT_DIR$/.idea/modules/MessengerProxyService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MessengerProxyService_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MessengerProxyService_main.iml" group="MessengerProxyService" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MessengerProxyService_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MessengerProxyService_test.iml" group="MessengerProxyService" />
     </modules>
   </component>
 </project>

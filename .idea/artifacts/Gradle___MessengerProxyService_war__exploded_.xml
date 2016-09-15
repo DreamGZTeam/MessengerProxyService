@@ -1,0 +1,95 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Gradle : MessengerProxyService.war (exploded)">
+    <output-path>$PROJECT_DIR$/classes/artifacts/MessengerProxyService/exploded/MessengerProxyService.war</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$" />
+    </properties>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="MessengerProxyService_main/web/Web Gradle : MessengerProxyService.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="MessengerProxyService_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/build/resources/main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: com.github.rubenlagus:TelegramBots:v2.3.5" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-frontend-jaxws:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-frontend-jaxrs:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-transports-http:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-rs-client:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-rs-service-description:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.media:jersey-media-json-jackson:2.23" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-bundle:1.19.1" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-grizzly2-servlet:1.19.1" />
+          <element id="library" level="project" name="Gradle: org.json:json:20160212" />
+          <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
+          <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpmime:4.5.2" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Gradle: xml-resolver:xml-resolver:1.2" />
+          <element id="library" level="project" name="Gradle: org.ow2.asm:asm:5.0.4" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-core:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-bindings-soap:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-bindings-xml:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-frontend-simple:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-ws-addr:3.1.7" />
+          <element id="library" level="project" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.0.1" />
+          <element id="library" level="project" name="Gradle: javax.annotation:javax.annotation-api:1.2" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2.external:javax.inject:2.4.0-b34" />
+          <element id="library" level="project" name="Gradle: org.glassfish.grizzly:grizzly-http-server:2.3.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.core:jersey-common:2.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.core:jersey-server:2.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.ext:jersey-entity-filtering:2.23" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.5.4" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.5.4" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
+          <element id="library" level="project" name="Gradle: javax.ws.rs:jsr311-api:1.1.1" />
+          <element id="library" level="project" name="Gradle: org.glassfish.grizzly:grizzly-http-servlet:2.2.16" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-grizzly2:1.19.1" />
+          <element id="library" level="project" name="Gradle: javax.servlet:javax.servlet-api:3.0.1" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-servlet:1.19.1" />
+          <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.4" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Gradle: org.codehaus.woodstox:woodstox-core-asl:4.4.1" />
+          <element id="library" level="project" name="Gradle: org.apache.ws.xmlschema:xmlschema-core:2.2.1" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-wsdl:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-databinding-jaxb:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-ws-policy:3.1.7" />
+          <element id="library" level="project" name="Gradle: org.glassfish.grizzly:grizzly-http:2.3.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2:hk2-api:2.4.0-b34" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2:hk2-locator:2.4.0-b34" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2:osgi-resource-locator:1.0.1" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.core:jersey-client:2.23" />
+          <element id="library" level="project" name="Gradle: org.glassfish.jersey.media:jersey-media-jaxb:2.23" />
+          <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.5.4" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-server:1.19.1" />
+          <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
+          <element id="library" level="project" name="Gradle: wsdl4j:wsdl4j:1.6.3" />
+          <element id="library" level="project" name="Gradle: com.sun.xml.bind:jaxb-impl:2.2.11" />
+          <element id="library" level="project" name="Gradle: com.sun.xml.bind:jaxb-core:2.2.11" />
+          <element id="library" level="project" name="Gradle: org.apache.neethi:neethi:3.0.3" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2:hk2-utils:2.4.0-b34" />
+          <element id="library" level="project" name="Gradle: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34" />
+          <element id="library" level="project" name="Gradle: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-core:1.19.1" />
+          <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Gradle: org.glassfish.grizzly:grizzly-framework:2.3.23" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/classes/artifacts/MessengerProxyService/exploded/MessengerProxyService.war/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

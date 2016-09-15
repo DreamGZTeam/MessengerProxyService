@@ -1,0 +1,42 @@
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jetty'
+
+project.ext {
+  springVersion = "4.1.9.RELEASE"
+  cxfVersion = "3.1.7"
+  
+  cxfArtifacts = [
+      'cxf-rt-frontend-jaxws',
+      'cxf-rt-frontend-jaxrs',
+      'cxf-rt-transports-http',
+      'cxf-rt-rs-client',
+      'cxf-rt-rs-service-description',
+  ]
+  
+  springArtifacts = [
+      'spring-beans',
+      'spring-context',
+      'spring-core',
+      'spring-aop',
+      'spring-web'
+  ]
+}
+
+repositories {
+  maven { url "https://jitpack.io" }
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.github.rubenlagus:TelegramBots:v2.3.5'
+
+  springArtifacts.each { artifact ->
+    compile "org.springframework:$artifact:$springVersion"
+  }
+
+  cxfArtifacts.each { artifact ->
+    compile "org.apache.cxf:$artifact:$cxfVersion"
+  }
+}
