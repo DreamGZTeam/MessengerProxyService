@@ -40,3 +40,39 @@ dependencies {
     compile "org.apache.cxf:$artifact:$cxfVersion"
   }
 }
+
+// New configuration for CXF dependencies.
+configurations { cxfTool }
+ext {
+// Artifacts for CXF dependency.
+  cxfToolArtifacts = [
+          'cxf-tools-wsdlto-frontend-jaxws',
+          'cxf-tools-wsdlto-databinding-jaxb',
+          'cxf-tools-common',
+          'cxf-tools-wsdlto-core'
+  ]
+}
+
+dependencies {
+  cxfToolArtifacts.each { artifact ->
+    cxfTool "org.apache.cxf:$artifact:$cxfVersion"
+  }
+}
+
+task wsdl2java(type: JavaExec) {
+  ext {
+    outputDir = file("$buildDir/generated/cxf")
+  }
+  outputs.upToDateWhen { false }
+  outputs.dir outputDir
+  main = 'org.apache.cxf.tools.wsdlto.WSDLToJava'
+  classpath = configurations.cxfTool
+  args '-d', outputDir
+  args "-client"
+  args '-verbose'
+  args '-validate'
+  args 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
+  doLast {
+    println "[INFO] Client files generated"
+  }
+}

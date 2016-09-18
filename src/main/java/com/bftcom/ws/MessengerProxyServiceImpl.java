@@ -6,6 +6,7 @@ import com.bftcom.ws.api.Messenger;
 import com.bftcom.ws.api.TextMessage;
 import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +22,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
 
   Map<String, Messenger> messengers = new HashMap<>();
 
-  public MessengerProxyServiceImpl() {
-    initService();
-  }
-
-  private void initService(){
+  @PostConstruct
+  private void initService() {
     //register bots as messengers
 
     //Telegramm bot

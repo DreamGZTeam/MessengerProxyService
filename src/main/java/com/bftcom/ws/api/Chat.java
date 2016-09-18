@@ -8,23 +8,23 @@ import java.util.TreeSet;
  */
 public class Chat {
 
-    private String id;
-    private Set<TextMessage> history = new TreeSet<>();
+  private String id;
+  private Set<TextMessage> history = new TreeSet<>();
 
-    public Chat(String id) {
-        this.id = id;
-    }
+  public Chat(String id) {
+    this.id = id;
+  }
 
-    public Set<TextMessage> getHistory() {
-        return history;
-    }
+  public Set<TextMessage> getHistory() {
+    return history;
+  }
 
-    public void addMessage(TextMessage msg){
-        history.add(msg);
-    }
+  public void addMessage(TextMessage msg) {
+    history.add(msg);
+  }
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
 }

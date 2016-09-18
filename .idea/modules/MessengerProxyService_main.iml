@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="MessengerProxyService:main" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/../../src/main/webapp/WEB-INF/cxf-servlet.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
     <facet type="web" name="Web Gradle : MessengerProxyService.war">
       <configuration>
         <descriptors>
@@ -9,13 +16,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../../src/main/webapp" relative="/" />
         </webroots>
-      </configuration>
-    </facet>
-    <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/../../src/main/webapp/WEB-INF/cxf-servlet.xml</file>
-        </fileset>
       </configuration>
     </facet>
   </component>

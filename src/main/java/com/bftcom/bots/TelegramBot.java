@@ -7,6 +7,7 @@ import com.bftcom.ws.api.TextMessage;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.logging.BotLogger;
@@ -23,9 +24,32 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
   public static void main(String[] args) {
     TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
     try {
-      TelegramBot telegramBot = new TelegramBot();
+      TelegramBot telegramBot = new TelegramBot() {
+        @Override
+        public void onUpdateReceived(Update update) {
+          //check if the update has a message
+          if (update.hasMessage()) {
+            Message message = update.getMessage();
+
+            //check if the message has text. it could also contain for example a location ( message.hasLocation() )
+            if (message.hasText()) {
+              //create an object that contains the information to send back the message
+              SendMessage sendMessageRequest = new SendMessage();
+              sendMessageRequest.setChatId(message.getChatId().toString()); //who should get from the message the sender that sent it.
+              sendMessageRequest.setText("you said: " + message.getText());
+              try {
+                sendMessage(sendMessageRequest); //at the end, so some magic and send the message ;)
+              } catch (TelegramApiException e) {
+                //do some error handling
+              }
+            }
+          }
+        }
+      };
       telegramBotsApi.registerBot(telegramBot);
-//      telegramBot.sendMessage("123");
+
+//      telegramBot.sendMessage("Hello, I'm Bot");
+
     } catch (TelegramApiException e) {
       BotLogger.error("Bot register error", e);
     }
@@ -62,7 +86,7 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
     }
   }
 
-  private com.bftcom.ws.api.Update transformUpdateObject(Update update){
+  private com.bftcom.ws.api.Update transformUpdateObject(Update update) {
     if (update.getMessage().getText() == null || update.getMessage().getText().equals("") ||
         update.getMessage().getFrom().getId() == null)
       return null;
