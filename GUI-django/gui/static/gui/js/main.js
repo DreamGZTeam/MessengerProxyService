@@ -1,27 +1,35 @@
-$('#navbar').on('click', 'p', function(){
-    bot();
+// получаем список контактов
+$(document).ready( function () {
+    $('#navbar').on('click', 'p', function(){
+        var bot_id = this.id;
+        bot(bot_id);
+    });
 });
 
-function bot() {
+function bot(bot_name) {
+//    console.log('Bot '+ bot_name + ' called')
     $.ajax({
         url : "bot", // the endpoint
         type : "GET", // http method
-        data : {'bot' : 'Telegram'},
+        data : {'bot' : bot_name},
         success : function(json){
-            console.log(json);
-            $('#contact_list').prepend(json);
+            $('#contact_list').append(json);
+            $('#contact_list').on('click', 'p', function(){
+                    var username = this.id;
+                    history(username, bot_name);
+                });
         }
     });
 };
 
-function history(username) {
+function history(username, bot_name) {
+//    console.log('History called for ' + username);
     $.ajax({
-        url : 'bot/' + username,
+        url : 'user',
         type : 'GET',
-        data : {'user' : username, 'm_token' : m_token},
+        data : { 'bot' : bot_name, 'user' : username},
         success : function(json){
-            console.log(json);
-            $('#history_list').prepend(json);
+            $('#history_list').append(json);
         }
     });
 };

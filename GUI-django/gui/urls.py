@@ -5,5 +5,5 @@ app_name = 'kpi'
 urlpatterns = [
     url(r'^$', views.main, name='main'),
     url(r'^bot', views.bot, name='bot'),
-    url(r'^bot/$', views.history, name='history')
+    url(r'^user', views.history, name='history')
     ]
