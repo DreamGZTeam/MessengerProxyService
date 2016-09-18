@@ -28,10 +28,11 @@ def bot(request):
         bot_id = [i[1] for i in b[1]]
         c = client.service.getContacts(bot_id)
         contacts = []
-        for ii in c[1]:
-            contacts.append(ii[1])
-        return render(request, '_contact_list.html', {'contacts': contacts})        
-#        return HttpResponse(
+        if c[1] != []:
+            for ii in c[1]:
+                contacts.append(ii[1])
+            return render(request, '_contact_list.html', {'contacts': contacts})        
+            return HttpResponse(request, {'contacts': 'К сожалению контактов нет'})
 #            json.dumps({'contacts' : contacts}),
 #        return render(request, '_contact_list.html', {'contacts': contacts})
 #            content_type="application/json"
@@ -61,3 +62,15 @@ def history(request):
         for i0 in h[1]:
             history.append(i0) 
         return render(request, '_contact_history.html', {'history_list': history})
+
+def message(request):
+    if request.method == "POST":
+        text = []
+        text.append(request.POST.get('text'))
+        if text != []:
+            return render(request,'_contact_history.html', {'history_list': text})
+        else:
+            return HttpResponse(
+                json.dumps({'text' : 'ok'}),
+                content_type="application/json"
+                )

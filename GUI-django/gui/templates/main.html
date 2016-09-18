@@ -31,9 +31,14 @@
       {% block contacts %} {% include '_contact_list.html' %} {% endblock %}
     </div>
     
-    <div class='col-md-7 bg-info' style="height:100%;" id='history_list'>
-      {% block history %} {% include '_contact_history.html' %} {% endblock %}
-      {% block send_form %} {% include '_send_form.html' %} {% endblock %}
+    <div class='col-md-7 bg-info' style="height:100%;">
+        <div class='col-md-12 bg-info' style="height:85%;" id='history_list'>
+          {% block history %} {% include '_contact_history.html' %} {% endblock %}
+        </div>
+        
+        <div class='col-md-12' style="height:15%;" id='message_form'>
+          {% block send_form %} {% include '_send_form.html' %} {% endblock %}
+        </div>
     </div>
     
     <div class='col-md-1' style="height:100%;">
