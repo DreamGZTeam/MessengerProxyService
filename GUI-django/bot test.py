@@ -14,4 +14,7 @@ print(client)
 print(a[1])
 print(b[1])
 print(c)
+f = c[1]
+print(f[0])
+#d = client.service.getHistory(bb, ii[0])   
 #print(d[1])

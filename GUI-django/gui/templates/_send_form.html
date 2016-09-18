@@ -1,0 +1,6 @@
+<form action="/message/" method="POST" id='message' type='text'>
+    {% csrf_token %}
+    <textarea class="form-control" rows="3" form="message" placeholder="Введите сообщение" >
+    </textarea>
+    <input type="submit" value="Отправить" form='message' class="btn btn-primary">
+</form>

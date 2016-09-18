@@ -32,4 +32,5 @@ p {
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
+    cursor: pointer;
 }
