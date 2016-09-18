@@ -2,6 +2,9 @@ package com.bftcom.ws.api;
 
 import com.bftcom.bots.intf.IBot;
 import com.bftcom.bots.intf.IMessenger;
+import com.bftcom.bots.intf.IStorage;
+import com.bftcom.ws.handlers.MessageProcessor;
+import com.bftcom.ws.storages.XMLStorage;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -18,7 +21,10 @@ public class Messenger implements IMessenger, Serializable{
     public String name;
     public String id;
     private IBot bot;
+    private IStorage storage = new XMLStorage();
     private Map<String, Contact> contacts = new HashMap<>();
+    private MessageProcessor messageProcessor = new MessageProcessor();
+    private boolean interactiveMode = false;
 
     public String getName() {
         return name;
@@ -29,13 +35,20 @@ public class Messenger implements IMessenger, Serializable{
     }
 
     public Messenger(IBot bot, String name) {
+
         this.name = name;
         if (bot != null) {
             this.bot = bot;
             bot.setMessenger(this);
             id = bot.getBotToken();
         }
+        storage.readData(this);
 
+    }
+
+    public void save(){
+        if (storage != null)
+            storage.saveData(this);
     }
 
     public String getId() {
@@ -66,6 +79,9 @@ public class Messenger implements IMessenger, Serializable{
         if (update ==  null)
             return;
         Contact contact = contacts.get(update.getContactId().toString());
+        TextMessage incomingMessage = new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
+                                                      DIRECTION_MESSAGE_INCOMING,
+                                                      update.getText());
         if (contact == null) {
             contact = new Contact(update.getContactId().toString(),
                 update.getFirstName(),
@@ -73,17 +89,25 @@ public class Messenger implements IMessenger, Serializable{
                 update.getUserName(),
                 update.getChatId());
             contacts.put(update.getContactId().toString(), contact);
-            contact.getChat().addMessage(new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
-                                                         DIRECTION_MESSAGE_INCOMING,
-                                                         update.getText()));
+            contact.getChat().addMessage(incomingMessage);
         } else {
-            contact.getChat().addMessage(new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
-                                                         DIRECTION_MESSAGE_INCOMING,
-                                                         update.getText()));
+            contact.getChat().addMessage(incomingMessage);
+        }
+        if(interactiveMode) {
+            messageProcessor.handleMessage(incomingMessage);
+            sendTextMessage(contact.getId(), incomingMessage.getText());
         }
     }
 
     public Set<TextMessage> getHistory(String contactId){
         return getChatForContact(contactId).getHistory();
+    }
+
+    public MessageProcessor getMessageProcessor() {
+        return messageProcessor;
+    }
+
+    public void setInteractiveMode(boolean interactiveMode){
+        this.interactiveMode = interactiveMode;
     }
 }

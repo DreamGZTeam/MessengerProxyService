@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class TextMessage extends Message {
 
-    public String text;
+    private String text;
 
     public TextMessage(String messageText) {
         super(MESSAGE_TYPE_TEXT, new Date(), DIRECTION_MESSAGE_OUTGOING);
@@ -21,5 +21,9 @@ public class TextMessage extends Message {
 
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

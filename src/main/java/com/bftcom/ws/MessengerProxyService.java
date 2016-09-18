@@ -40,4 +40,12 @@ public interface MessengerProxyService {
     <text>message text</text>
   */
   Set<TextMessage> getHistory(String messengerId, String contactId);
+
+  /* Сохраняет контакты и историю в файл */
+  void save();
+
+  /* Включает интерактивный режим. В этом режиме messenger сам отвечает на сообщения
+    предварительно обработав входящее сообщение всеми своими хендлерами
+  */
+  void setInteractive(String messengerId, String interactive);
 }

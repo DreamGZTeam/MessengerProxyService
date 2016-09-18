@@ -4,6 +4,7 @@ import com.bftcom.bots.TelegramBot;
 import com.bftcom.ws.api.Contact;
 import com.bftcom.ws.api.Messenger;
 import com.bftcom.ws.api.TextMessage;
+import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
 
 import javax.jws.WebService;
 import java.util.HashMap;
@@ -29,6 +30,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
 
     //Telegramm bot
     Messenger msgr = new Messenger(TelegramBot.getInstance(), "TelegramBot_1");
+    //Интерактивный обработчик сообщений
+    msgr.getMessageProcessor().addHandler(new ElizaMessageHandler());
     messengers.put(msgr.getId(), msgr);
 
     //@todo register Another bot...
@@ -59,6 +62,17 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   @Override
   public Set<TextMessage> getHistory(String messengerId, String contactId) {
     return getMessenger(messengerId).getHistory(contactId);
+  }
+
+  @Override
+  public void save() {
+    messengers.values().forEach(Messenger::save);
+  }
+
+  @Override
+  public void setInteractive(String messengerId, String interactive) {
+  getMessenger(messengerId).setInteractiveMode(interactive.equals("1"));
+
   }
 
   private Messenger getMessenger(String messengerId){
