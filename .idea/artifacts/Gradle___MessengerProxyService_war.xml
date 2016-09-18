@@ -53,7 +53,6 @@
           <element id="library" level="project" name="Gradle: javax.ws.rs:jsr311-api:1.1.1" />
           <element id="library" level="project" name="Gradle: org.glassfish.grizzly:grizzly-http-servlet:2.2.16" />
           <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-grizzly2:1.19.1" />
-          <element id="library" level="project" name="Gradle: javax.servlet:javax.servlet-api:3.0.1" />
           <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-servlet:1.19.1" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.4" />
           <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.9" />
