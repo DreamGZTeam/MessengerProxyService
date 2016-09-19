@@ -34,7 +34,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
     messengers.put(msgr.getId(), msgr);
 
     Messenger slackMessenger = new Messenger(SlackBot.getInstance(), "SlackBot_1");
-    messengers.put(msgr.getId(), msgr);
+    messengers.put(slackMessenger.getId(), slackMessenger);
   }
 
   @Override
