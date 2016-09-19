@@ -15,11 +15,13 @@ public abstract class Message implements Comparable, Serializable {
 
   public Date date;
   public int direction;
+  private long uid;
 
   public Message(int messageType, Date date, int direction) {
     this.messageType = messageType;
     this.date = date;
     this.direction = direction;
+    this.uid = new Date().getTime();
   }
 
   public int getMessageType() {
@@ -34,8 +36,15 @@ public abstract class Message implements Comparable, Serializable {
     return direction;
   }
 
+  public long getUid() {
+    return uid;
+  }
+
   @Override
   public int compareTo(Object o) {
-    return ((Message) o).date.compareTo(this.date);
+    if (((Message) o).date.compareTo(this.date) == 0)
+      return Long.compare(((Message) o).getUid(), this.getUid());
+    else
+      return ((Message) o).date.compareTo(this.date);
   }
 }

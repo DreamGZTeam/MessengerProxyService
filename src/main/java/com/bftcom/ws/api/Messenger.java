@@ -94,8 +94,9 @@ public class Messenger implements IMessenger, Serializable{
             contact.getChat().addMessage(incomingMessage);
         }
         if(interactiveMode) {
-            messageProcessor.handleMessage(incomingMessage);
-            sendTextMessage(contact.getId(), incomingMessage.getText());
+            TextMessage outgoingMessage = new TextMessage(incomingMessage.getText());
+            messageProcessor.handleMessage(outgoingMessage);
+            sendTextMessage(contact.getId(), outgoingMessage.getText());
         }
     }
 
