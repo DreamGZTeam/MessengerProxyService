@@ -1,5 +1,6 @@
 package com.bftcom.ws;
 
+import com.bftcom.bots.SlackBot;
 import com.bftcom.bots.TelegramBot;
 import com.bftcom.ws.api.Contact;
 import com.bftcom.ws.api.Messenger;
@@ -31,8 +32,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
     Messenger msgr = new Messenger(TelegramBot.getInstance(), "TelegramBot_1");
     messengers.put(msgr.getId(), msgr);
 
-    //@todo register Another bot...
-
+    Messenger slackMessenger = new Messenger(SlackBot.getInstance(), "SlackBot_1");
+    messengers.put(msgr.getId(), msgr);
   }
 
   @Override
