@@ -1,6 +1,6 @@
 from suds.client import Client
 
-url = 'http://localhost:8080/MessengerProxyService_Web/MessengerProxyService?wsdl'
+url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
 client = Client(url, faults=False)
 client.set_options(service='MessengerProxyServiceImplService')
 

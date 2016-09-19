@@ -7,7 +7,7 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 # Create your views here.
 
 def main(request):
-    url = 'http://localhost:8080/MessengerProxyService_Web/MessengerProxyService?wsdl'
+    url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
     client = Client(url, faults=False)
     client.set_options(service='MessengerProxyServiceImplService', port='MessengerProxyServiceImplPort')
     if request.method == 'GET':
@@ -15,11 +15,12 @@ def main(request):
         bot_list = []
         for bot in a[1]:
             bot_list.append(bot)
-        return render(request, 'main.html', {'bot_list': bot_list})
+        bot_len = 12 // len(bot_list)
+        return render(request, 'main.html', {'bot_list': bot_list, 'bot_len': bot_len })
 
 
 def bot(request):
-    url = 'http://localhost:8080/MessengerProxyService_Web/MessengerProxyService?wsdl'
+    url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
     client = Client(url, faults=False)
     client.set_options(service='MessengerProxyServiceImplService', port='MessengerProxyServiceImplPort')
     if request.method == 'GET':
@@ -45,7 +46,7 @@ def bot(request):
 #        )
 
 def history(request):
-    url = 'http://localhost:8080/MessengerProxyService_Web/MessengerProxyService?wsdl'
+    url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
     client = Client(url, faults=False)
     client.set_options(service='MessengerProxyServiceImplService', port='MessengerProxyServiceImplPort')
     if request.method == 'GET':
