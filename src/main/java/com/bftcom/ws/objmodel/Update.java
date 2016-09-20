@@ -1,23 +1,27 @@
-package com.bftcom.ws.api;
+package com.bftcom.ws.objmodel;
 
 /**
  * Created by d.dyldaev on 08.09.16.
  */
 public class Update {
 
-  private Long contactId;
+  private String contactId;
   private String userName;
   private String firstName;
   private String lastName;
-  private Long chatId;
+
+  private String chatId;
+  private String chatName;
+  private boolean isGroupChat;
+
   private String text;
   private Integer date;
 
-  public Long getContactId() {
+  public String getContactId() {
     return contactId;
   }
 
-  public void setContactId(Long contactId) {
+  public void setContactId(String contactId) {
     this.contactId = contactId;
   }
 
@@ -45,11 +49,11 @@ public class Update {
     this.lastName = lastName;
   }
 
-  public Long getChatId() {
+  public String getChatId() {
     return chatId;
   }
 
-  public void setChatId(Long chatId) {
+  public void setChatId(String chatId) {
     this.chatId = chatId;
   }
 
@@ -67,5 +71,21 @@ public class Update {
 
   public void setDate(Integer date) {
     this.date = date;
+  }
+
+  public String getChatName() {
+    return chatName;
+  }
+
+  public void setChatName(String chatName) {
+    this.chatName = chatName;
+  }
+
+  public boolean isIsGroupChat() {
+    return isGroupChat;
+  }
+
+  public void setIsGroupChat(boolean groupChat) {
+    isGroupChat = groupChat;
   }
 }

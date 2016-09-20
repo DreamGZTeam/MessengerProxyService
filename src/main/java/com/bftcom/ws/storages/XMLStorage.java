@@ -1,7 +1,7 @@
 package com.bftcom.ws.storages;
 
-import com.bftcom.bots.intf.IStorage;
-import com.bftcom.ws.api.Messenger;
+import com.bftcom.intf.IStorage;
+import com.bftcom.ws.objmodel.Messenger;
 
 /**
  * Created by d.dyldaev on 18.09.16.

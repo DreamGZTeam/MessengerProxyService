@@ -1,9 +1,9 @@
 package com.bftcom.bots;
 
-import com.bftcom.bots.intf.IBot;
-import com.bftcom.ws.api.Message;
-import com.bftcom.ws.api.Messenger;
-import com.bftcom.ws.api.TextMessage;
+import com.bftcom.intf.IBot;
+import com.bftcom.ws.objmodel.Message;
+import com.bftcom.ws.objmodel.Messenger;
+import com.bftcom.ws.objmodel.TextMessage;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.SlackUser;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
@@ -12,7 +12,7 @@ import org.telegram.telegrambots.logging.BotLogger;
 
 import java.io.IOException;
 
-import static com.bftcom.ws.api.Message.MESSAGE_TYPE_TEXT;
+import static com.bftcom.ws.objmodel.Message.MESSAGE_TYPE_TEXT;
 
 public class SlackBot implements IBot {
   public static final String BOT_TOKEN = "xoxb-81138594657-6w5wBkII5CkOyImtowilOZ71";

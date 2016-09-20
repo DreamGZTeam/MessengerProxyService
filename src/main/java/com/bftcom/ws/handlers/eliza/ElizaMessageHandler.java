@@ -1,8 +1,8 @@
 package com.bftcom.ws.handlers.eliza;
 
-import com.bftcom.bots.intf.IMessageHandler;
-import com.bftcom.ws.api.Message;
-import com.bftcom.ws.api.TextMessage;
+import com.bftcom.intf.IMessageHandler;
+import com.bftcom.ws.objmodel.Message;
+import com.bftcom.ws.objmodel.TextMessage;
 
 /**
  * Created by d.dyldaev on 18.09.16.

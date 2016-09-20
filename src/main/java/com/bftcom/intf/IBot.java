@@ -1,7 +1,7 @@
-package com.bftcom.bots.intf;
+package com.bftcom.intf;
 
-import com.bftcom.ws.api.Message;
-import com.bftcom.ws.api.Messenger;
+import com.bftcom.ws.objmodel.Message;
+import com.bftcom.ws.objmodel.Messenger;
 
 /**
  * Created by d.dyldaev on 07.09.16.

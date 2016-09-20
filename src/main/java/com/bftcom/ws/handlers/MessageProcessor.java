@@ -1,7 +1,7 @@
 package com.bftcom.ws.handlers;
 
-import com.bftcom.bots.intf.IMessageHandler;
-import com.bftcom.ws.api.Message;
+import com.bftcom.intf.IMessageHandler;
+import com.bftcom.ws.objmodel.Message;
 
 import java.util.ArrayList;
 import java.util.List;

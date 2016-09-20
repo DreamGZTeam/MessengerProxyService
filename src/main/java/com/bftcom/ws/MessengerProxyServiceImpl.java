@@ -2,10 +2,10 @@ package com.bftcom.ws;
 
 import com.bftcom.bots.SlackBot;
 import com.bftcom.bots.TelegramBot;
-import com.bftcom.ws.api.Contact;
-import com.bftcom.ws.api.Messenger;
-import com.bftcom.ws.api.TextMessage;
 import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
+import com.bftcom.ws.objmodel.Chat;
+import com.bftcom.ws.objmodel.Messenger;
+import com.bftcom.ws.objmodel.TextMessage;
 
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
@@ -38,8 +38,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public void sendTextMessage(String messengerId, String contactId, String text) {
-    getMessenger(messengerId).sendTextMessage(contactId, text);
+  public Set<String> getProtocols() {
+    return messengers.values().stream().map(Messenger::getProtocol).collect(Collectors.toSet());
   }
 
   @Override
@@ -48,19 +48,19 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public Set<String> getProtocols() {
-    return messengers.values().stream().map(Messenger::getProtocol).collect(Collectors.toSet());
-  }
-
-  @Override
-  public List<Contact> getContacts(String messengerId) {
-    return getMessenger(messengerId).getContacts();
+  public List<Chat> getChats(String messengerId) {
+    return getMessenger(messengerId).getChats();
 
   }
 
   @Override
-  public Set<TextMessage> getHistory(String messengerId, String contactId) {
-    return getMessenger(messengerId).getHistory(contactId);
+  public void sendTextMessage(String messengerId, String chatId, String text) {
+    getMessenger(messengerId).sendTextMessage(chatId, text);
+  }
+
+  @Override
+  public Set<TextMessage> getHistory(String messengerId, String chatId) {
+    return getMessenger(messengerId).getHistory(chatId);
   }
 
   @Override
@@ -70,15 +70,12 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
 
   @Override
   public void setInteractive(String messengerId, String interactive) {
-  getMessenger(messengerId).setInteractiveMode(interactive.equals("1"));
-
+    getMessenger(messengerId).setInteractiveMode(interactive.equals("1"));
   }
 
-  private Messenger getMessenger(String messengerId){
-    Messenger msgr = messengers.get(messengerId);
-    if (msgr == null)
-      throw new RuntimeException((new StringBuilder().append("Messenger with ID ").append(messengerId).append(" not found!")).toString());
-    return msgr;
+  private Messenger getMessenger(String messengerId) {
+    if (!messengers.containsKey(messengerId))
+      throw new RuntimeException("Messenger with ID " + messengerId + " not found!");
+    return  messengers.get(messengerId);
   }
-
 }

@@ -1,4 +1,4 @@
-package com.bftcom.ws.api;
+package com.bftcom.ws.objmodel;
 
 import java.util.Date;
 
