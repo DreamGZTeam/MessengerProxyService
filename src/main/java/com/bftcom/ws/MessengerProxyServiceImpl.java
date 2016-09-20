@@ -44,7 +44,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
 
   @Override
   public List<Messenger> getMessengers(String protocol) {
-    return messengers.values().stream().collect(Collectors.toList());
+    return messengers.values().stream().filter(m->m.getProtocol().equals(protocol)).collect(Collectors.toList());
   }
 
   @Override
