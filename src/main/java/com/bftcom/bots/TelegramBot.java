@@ -2,8 +2,9 @@ package com.bftcom.bots;
 
 import com.bftcom.intf.IBot;
 import com.bftcom.intf.IMessenger;
-import com.bftcom.ws.objmodel.Messenger;
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.objmodel.TextMessage;
+import com.sun.jersey.core.util.Base64;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -16,11 +17,12 @@ import org.telegram.telegrambots.logging.BotLogger;
 import static com.bftcom.ws.objmodel.Message.MESSAGE_TYPE_TEXT;
 
 public class TelegramBot extends TelegramLongPollingBot implements IBot {
-  public static final String BOT_USERNAME = "GZGZ2Bot";
-  public static final String BOT_TOKEN = "263209527:AAETQX4khnVcbd5xSw9uQCBRXJ8N_vuVuYU";
 
   private IMessenger msgr;
-  private static TelegramBot telegramBot;
+  //Токен закодирован в base64, чтобы ботов не банили после заливки кода на github
+  private String bot_token;
+  private String bot_userName;
+  private String bot_protocol;
 
   public TelegramBot(BotOptions options) {
     super(options);
@@ -30,69 +32,29 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
     super();
   }
 
-  public static void main(String[] args) {
-    TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-    try {
-      BotOptions options = new BotOptions();
-      options.setProxyHost("proxy.bftcom.com");
-      options.setProxyPort(8080);
-      TelegramBot telegramBot = new TelegramBot(options) {
-        @Override
-        public void onUpdateReceived(Update update) {
-          //check if the update has a message
-          if (update.hasMessage()) {
-            Message message = update.getMessage();
-
-            //check if the message has text. it could also contain for example a location ( message.hasLocation() )
-            if (message.hasText()) {
-              //create an object that contains the information to send back the message
-              SendMessage sendMessageRequest = new SendMessage();
-              sendMessageRequest.setChatId(message.getChatId().toString()); //who should get from the message the sender that sent it.
-              sendMessageRequest.setText("you said: " + message.getText());
-              try {
-                sendMessage(sendMessageRequest); //at the end, so some magic and send the message ;)
-              } catch (TelegramApiException e) {
-                //do some error handling
-              }
-            }
-          }
-        }
-      };
-      telegramBotsApi.registerBot(telegramBot);
-
-//      telegramBot.sendMessage("Hello, I'm Bot");
-
-    } catch (TelegramApiException e) {
-      BotLogger.error("Bot register error", e);
-    }
-  }
-
-  public static TelegramBot getInstance() {
-    if (telegramBot == null) {
-      BotOptions options = new BotOptions();
-      //options.setProxyHost("proxy.bftcom.com");
-      //options.setProxyPort(8080);
-      telegramBot = new TelegramBot(options);
-      TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-      try {
-        telegramBotsApi.registerBot(telegramBot);
-      } catch (TelegramApiException e) {
-        BotLogger.error("Bot register error", e);
-      }
-    }
-    return telegramBot;
-  }
-
-  public void sendMessage(String text) {
-    SendMessage sendMessageRequest = new SendMessage();
-    sendMessageRequest.setChatId("-179689831");
-    sendMessageRequest.setText(text);
-    try {
-      sendMessage(sendMessageRequest);
-    } catch (TelegramApiException e) {
-      //do some error handling
-    }
-  }
+//  public static TelegramBot getInstance() {
+//    if (telegramBot == null) {
+//      Configurator.Config cfg = Configurator.getInstance().getConfig(BOT_USERNAME);
+//      BotOptions options = null;
+//      if (cfg != null){
+//        setBotToken(cfg.getParam("token"));
+//        if (Boolean.parseBoolean(cfg.getParam("useProxy"))){
+//          options = new BotOptions();
+//          options.setProxyHost(cfg.getParam("proxyHost"));
+//          options.setProxyPort(Integer.parseInt(cfg.getParam("proxyPort")));
+//        }
+//      }
+//      telegramBot = options == null ? new TelegramBot() : new TelegramBot(options);
+//
+//      TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+//      try {
+//        telegramBotsApi.registerBot(telegramBot);
+//      } catch (TelegramApiException e) {
+//        BotLogger.error("Bot register error", e);
+//      }
+//    }
+//    return telegramBot;
+//  }
 
   @Override
   public void onUpdateReceived(Update update) {
@@ -121,29 +83,47 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
       wsUpdate.setChatName(message.getChat().getFirstName() + " " + message.getChat().getLastName());
 
     wsUpdate.setText(message.getText());
-    wsUpdate.setDate(message.getDate());
+    wsUpdate.setDate(message.getDate().longValue());
 
     return wsUpdate;
   }
 
   @Override
   public String getBotUsername() {
-    return BOT_USERNAME;
+    return bot_userName;
   }
 
   @Override
-  public void setMessenger(Messenger msgr) {
+  public void init(Configurator.Config cfg) {
+    bot_token = cfg.getParam("token");
+    bot_userName = cfg.getParam("name");
+    bot_protocol = cfg.getParam("protocol");
+    TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+    try {
+      telegramBotsApi.registerBot(this);
+    } catch (TelegramApiException e) {
+      BotLogger.error("Bot register error", e);
+    }
+  }
+
+  @Override
+  public void setMessenger(IMessenger msgr) {
     this.msgr = msgr;
   }
 
   @Override
   public String getBotToken() {
-    return BOT_TOKEN;
+    return Base64.base64Decode(bot_token);
+  }
+
+  @Override
+  public String getName() {
+    return bot_userName;
   }
 
   @Override
   public String getProtocol() {
-    return "Telegram";
+    return bot_protocol;
   }
 
   @Override

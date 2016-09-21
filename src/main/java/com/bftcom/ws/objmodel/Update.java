@@ -15,7 +15,7 @@ public class Update {
   private boolean isGroupChat;
 
   private String text;
-  private Integer date;
+  private Long date;
 
   public String getContactId() {
     return contactId;
@@ -65,11 +65,11 @@ public class Update {
     this.text = text;
   }
 
-  public Integer getDate() {
+  public Long getDate() {
     return date;
   }
 
-  public void setDate(Integer date) {
+  public void setDate(Long date) {
     this.date = date;
   }
 

@@ -1,74 +1,105 @@
 package com.bftcom.bots;
 
 import com.bftcom.intf.IBot;
+import com.bftcom.intf.IMessenger;
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.objmodel.Message;
-import com.bftcom.ws.objmodel.Messenger;
 import com.bftcom.ws.objmodel.TextMessage;
+import com.sun.jersey.core.util.Base64;
+import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
-import com.ullink.slack.simpleslackapi.SlackUser;
+import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
+import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener;
 import org.telegram.telegrambots.logging.BotLogger;
 
 import java.io.IOException;
+import java.net.Proxy;
 
 import static com.bftcom.ws.objmodel.Message.MESSAGE_TYPE_TEXT;
 
 public class SlackBot implements IBot {
-  public static final String BOT_TOKEN = "xoxb-81138594657-6w5wBkII5CkOyImtowilOZ71";
+  //Токен закодирован в base64, чтобы ботов не банили после заливки кода на github
+  private String bot_token;
+  private String bot_userName;
+  private String bot_protocol;
 
-  static SlackSession session;
-  static SlackBot slackBot;
-
-  public static SlackBot getInstance() {
-    if (slackBot == null) {
-      slackBot = new SlackBot();
-    }
-    return slackBot;
-  }
-
-  /** Тест */
-  public static void main(String args[]) {
-    session = SlackSessionFactory.createWebSocketSlackSession(BOT_TOKEN);
-    session.refetchUsers();
-    SlackBot bot = SlackBot.getInstance();
-    bot.sendDirectMessageToAUser(session, "a.frolovsky", "test message");
-  }
+  private static SlackSession session;
+  private IMessenger msgr;
 
   @Override
-  public void setMessenger(Messenger msgr) {
-    session = SlackSessionFactory.createWebSocketSlackSession(BOT_TOKEN);
+  public void init(Configurator.Config cfg) {
+    bot_token = cfg.getParam("token");
+    bot_userName = cfg.getParam("name");
+    bot_protocol = cfg.getParam("protocol");
+    session = SlackSessionFactory.createWebSocketSlackSession(getBotToken());
     try {
       session.connect();
+      session.addMessagePostedListener(messageListener);
     } catch (IOException e) {
       BotLogger.error("Bot register error", e);
     }
   }
 
   @Override
+  public void setMessenger(IMessenger msgr) {
+    this.msgr = msgr;
+  }
+
+  private SlackMessagePostedListener messageListener = new SlackMessagePostedListener() {
+    @Override
+    public void onEvent(SlackMessagePosted event, SlackSession session) {
+      //Сообщения от ботов не принимаем
+      if (event.getSender().isBot())
+        return;
+
+      com.bftcom.ws.objmodel.Update wsUpdate = new com.bftcom.ws.objmodel.Update();
+
+      wsUpdate.setContactId(event.getSender().getId());
+      wsUpdate.setFirstName(event.getSender().getRealName());
+      wsUpdate.setLastName("");
+      wsUpdate.setUserName(event.getSender().getUserName());
+
+      wsUpdate.setChatId(event.getChannel().getId());
+      wsUpdate.setIsGroupChat(!event.getChannel().isDirect());
+      if (wsUpdate.isIsGroupChat())
+        wsUpdate.setChatName(event.getChannel().getName());
+      else
+        wsUpdate.setChatName(event.getSender().getUserName());
+
+      wsUpdate.setText(event.getMessageContent());
+      wsUpdate.setDate(((Double) Double.parseDouble(event.getTimeStamp())).longValue());
+
+      msgr.onUpdate(wsUpdate);
+    }
+  };
+
+  @Override
   public String getBotToken() {
-    return BOT_TOKEN;
+    return Base64.base64Decode(bot_token);
+  }
+
+  @Override
+  public String getName() {
+    return bot_userName;
   }
 
   @Override
   public String getProtocol() {
-    return "Slack";
+    return bot_protocol;
   }
 
   @Override
-  public void sendMessage(String username, Message msg) {
-    SendMessage sendMessageRequest = new SendMessage();
-    sendMessageRequest.setChatId(username);
+  public void sendMessage(String channelId, Message msg) {
     switch (msg.getMessageType()) {
       case MESSAGE_TYPE_TEXT:
-        sendMessageRequest.setText(((TextMessage) msg).getText());
+        sendMessageToChannel(session, channelId, ((TextMessage) msg).getText());
         break;
     }
-    sendDirectMessageToAUser(session, username, ((TextMessage) msg).getText());
   }
 
-  public void sendDirectMessageToAUser(SlackSession session, String userName, String message) {
-    SlackUser user = session.findUserByUserName(userName);
-    session.sendMessageToUser(user, message, null);
+  private void sendMessageToChannel(SlackSession session, String channelId, String message){
+    SlackChannel channel = session.findChannelById(channelId);
+    session.sendMessage(channel, message);
   }
 }

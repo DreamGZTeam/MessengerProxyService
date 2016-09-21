@@ -2,6 +2,8 @@ package com.bftcom.ws;
 
 import com.bftcom.bots.SlackBot;
 import com.bftcom.bots.TelegramBot;
+import com.bftcom.intf.IBot;
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
 import com.bftcom.ws.objmodel.Chat;
 import com.bftcom.ws.objmodel.Messenger;
@@ -9,6 +11,7 @@ import com.bftcom.ws.objmodel.TextMessage;
 
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,14 +30,29 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   private void initService() {
     //register bots as messengers
 
-    //Telegramm bot
-    Messenger msgr = new Messenger(TelegramBot.getInstance(), "TelegramBot_1");
-    //Интерактивный обработчик сообщений
-    msgr.getMessageProcessor().addHandler(new ElizaMessageHandler());
-    messengers.put(msgr.getId(), msgr);
+    try {
+        for (Configurator.Config botConfig : Configurator.getInstance().getBotFactory()) {
+          ClassLoader classLoader = IBot.class.getClassLoader();
+          Class botClass = classLoader.loadClass(botConfig.getParam("javaclass"));
+          Constructor<IBot> botConstructor = botClass.getConstructor();
+          IBot bot = botConstructor.newInstance();
+          bot.init(botConfig);
+          Messenger msgr = new Messenger(bot);
+          messengers.put(msgr.getId(), msgr);
+        }
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
 
-    Messenger slackMessenger = new Messenger(SlackBot.getInstance(), "SlackBot_1");
-    messengers.put(slackMessenger.getId(), slackMessenger);
+    //Telegramm bot
+//    Messenger msgr = new Messenger(TelegramBot.getInstance());
+//    //Интерактивный обработчик сообщений
+//    msgr.getMessageProcessor().addHandler(new ElizaMessageHandler());
+//    messengers.put(msgr.getId(), msgr);
+//
+//    Messenger slackMessenger = new Messenger(SlackBot.getInstance());
+//    messengers.put(slackMessenger.getId(), slackMessenger);
   }
 
   @Override
