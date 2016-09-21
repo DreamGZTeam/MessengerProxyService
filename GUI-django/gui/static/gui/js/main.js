@@ -1,23 +1,21 @@
 $(document).ready( function () {
     // Выбор бота
-    $('#navbar').on('click', 'p', function(){
-        var bot_id = this.id;
-        $('#contact_list').val('');
-        bot(bot_id);
+    $('#navbar').one('click', 'p', function(){
+
     });
     // Отправка сообщения
     $('#message_form').on('submit', function(){
         event.preventDefault();
-        var bot_active = $('bot_active').id;
-        var contact_active = $('contact_active').id;
+        var messeger_active = $('#messeger_list .active').id;
+        var contact_active = $('#contact_list .active').id;
         console.log('bot = '+ bot_active + 'contact_active = '+ contact_active);
         console.log("form submitted! " + $('#message textarea').val());
-        message($('#message textarea').val());
+        message($('#message textarea').val(), messeger_active, contact_active);
     });
 });
 
 //Получаем список контактов бота
-function bot(bot_name) {
+function messeger(bot_name) {
     $(this).addClass('bot_active')
     $.ajax({
         url : "bot", // the endpoint
@@ -53,12 +51,12 @@ function history(username, bot_name) {
 };
 
 //Отправка сообщения
-function message(message) {
+function message(message,messeger_active, contact_active) {
     event.preventDefault();
     $.ajax({
         url : 'message',
         type : 'post',
-        data : { 'text' : message},
+        data : { 'text' : message, 'messeger_active' : messeger_active, contact_active: contact_active},
         success : function(json){
             console.log('Success ' + json['text']);
             $('#history_list').append(json);
