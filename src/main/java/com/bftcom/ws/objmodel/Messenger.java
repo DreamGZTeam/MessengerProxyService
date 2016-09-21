@@ -42,8 +42,12 @@ public class Messenger implements IMessenger, Serializable{
             bot.setMessenger(this);
             id = bot.getBotToken();
         }
-        storage.readData(this);
+        load();
 
+    }
+
+    public void addChat(String chatId, Chat chat){
+        chats.put(chatId, chat);
     }
 
     public void save(){
@@ -51,15 +55,21 @@ public class Messenger implements IMessenger, Serializable{
             storage.saveData(this);
     }
 
+    public void load(){
+        if (storage != null)
+            storage.readData(this);
+    }
+
     public String getId() {
         return id;
     }
 
     public void sendTextMessage(String chatId, String messageText){
-        Chat chat = chats.get(chatId);
+        Chat chat = getChatById(chatId);
         TextMessage message = new TextMessage(messageText);
         chat.addMessage(message);
         bot.sendMessage(chat.getId(), message);
+        save();
     }
 
     public List<Chat> getChats() {
@@ -67,8 +77,15 @@ public class Messenger implements IMessenger, Serializable{
     }
 
     public Chat getChatById(String chatId) {
-        if (chats.containsKey(chatId))
-            throw new RuntimeException((new StringBuilder().append("Chat with ID ").append(chatId).append(" not found!")).toString());
+        return getChatById(chatId, true);
+    }
+
+    public Chat getChatById(String chatId, boolean throwException) {
+        if (!chats.containsKey(chatId))
+            if (throwException)
+                throw new RuntimeException((new StringBuilder().append("Chat with ID ").append(chatId).append(" not found!")).toString());
+            else
+                return null;
         return chats.get(chatId);
     }
 
@@ -79,15 +96,13 @@ public class Messenger implements IMessenger, Serializable{
             return;
 
         // создадим новый чат или если уже есть, возьмем из мапы
-        Chat chat;
-        String chatId = update.getChatId().toString();
-        if (!chats.containsKey(chatId)) {
-            chat = new Chat(update.getChatId().toString(),
+        String chatId = update.getChatId();
+        Chat chat = getChatById(chatId, false);
+        if (chat == null) {
+            chat = new Chat(chatId,
                 update.getChatName(),
                 update.isIsGroupChat());
-            chats.put(update.getChatId().toString(), chat);
-        } else {
-            chat = chats.get(chatId);
+            addChat(chatId, chat);
         }
 
         // добавим в чат новое сообщение и пользователя
@@ -102,10 +117,11 @@ public class Messenger implements IMessenger, Serializable{
             messageProcessor.handleMessage(outgoingMessage);
             sendTextMessage(chat.getId(), outgoingMessage.getText());
         }
+        save();
     }
 
     public Set<TextMessage> getHistory(String chatId){
-        return chats.get(chatId).getHistory();
+        return getChatById(chatId).getHistory();
     }
 
     public MessageProcessor getMessageProcessor() {

@@ -50,7 +50,6 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   @Override
   public List<Chat> getChats(String messengerId) {
     return getMessenger(messengerId).getChats();
-
   }
 
   @Override
@@ -64,13 +63,8 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public void save() {
-    messengers.values().forEach(Messenger::save);
-  }
-
-  @Override
-  public void setInteractive(String messengerId, String interactive) {
-    getMessenger(messengerId).setInteractiveMode(interactive.equals("1"));
+  public void setInteractive(String messengerId, boolean interactive) {
+    getMessenger(messengerId).setInteractiveMode(interactive);
   }
 
   private Messenger getMessenger(String messengerId) {

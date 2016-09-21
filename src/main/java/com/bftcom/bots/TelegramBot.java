@@ -70,8 +70,8 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
   public static TelegramBot getInstance() {
     if (telegramBot == null) {
       BotOptions options = new BotOptions();
-      options.setProxyHost("proxy.bftcom.com");
-      options.setProxyPort(8080);
+      //options.setProxyHost("proxy.bftcom.com");
+      //options.setProxyPort(8080);
       telegramBot = new TelegramBot(options);
       TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
       try {
