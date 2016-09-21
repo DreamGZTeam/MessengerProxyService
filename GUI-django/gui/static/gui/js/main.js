@@ -8,6 +8,9 @@ $(document).ready( function () {
     // Отправка сообщения
     $('#message_form').on('submit', function(){
         event.preventDefault();
+        var bot_active = $('bot_active').id;
+        var contact_active = $('contact_active').id;
+        console.log('bot = '+ bot_active + 'contact_active = '+ contact_active);
         console.log("form submitted! " + $('#message textarea').val());
         message($('#message textarea').val());
     });
@@ -15,19 +18,21 @@ $(document).ready( function () {
 
 //Получаем список контактов бота
 function bot(bot_name) {
+    $(this).addClass('bot_active')
     $.ajax({
         url : "bot", // the endpoint
         type : "GET", // http method
         data : {'bot' : bot_name},
         success : function(json){
             $('#contact_list .col-md-12').remove();
-            
             $('#contact_list').append(json);
             $('#contact_list').on('click', 'p', function(){
                     $('#contact_list p').css('background-color', '');
+                    $('#contact_list p').removeClass('contact_active')
                     var username = this.id;
                     history(username, bot_name);
                     $(this).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
+                    $(this).addClass('contact_active')
                 });
         }
     });
