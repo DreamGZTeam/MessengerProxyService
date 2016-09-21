@@ -1,5 +1,5 @@
 <ServiceParams>
-    <Bot>
+    <Messenger>
         <javaclass>com.bftcom.bots.TelegramBot</javaclass>
         <name>SlackBot</name>
         <protocol>Slack</protocol>
@@ -7,8 +7,14 @@
         <useProxy><![CDATA[false]]></useProxy>
         <proxyHost><![CDATA[proxy.bftcom.com]]></proxyHost>
         <proxyPort><![CDATA[8080]]></proxyPort>
-    </Bot>
-    <Bot>
+        <Handlers>
+            <Handler>
+            </Handler>
+        </Handlers>
+        <Storage>
+        </Storage>
+    </Messenger>
+    <Messenger>
         <javaclass>com.bftcom.bots.SlackBot</javaclass>
         <name>GZGZ2Bot</name>
         <protocol>Telegram</protocol>
@@ -16,5 +22,11 @@
         <useProxy><![CDATA[false]]></useProxy>
         <proxyHost><![CDATA[proxy.bftcom.com]]></proxyHost>
         <proxyPort><![CDATA[8080]]></proxyPort>
-    </Bot>
+        <Handlers>
+            <Handler>
+            </Handler>
+        </Handlers>
+        <Storage>
+        </Storage>
+    </Messenger>
 </ServiceParams>

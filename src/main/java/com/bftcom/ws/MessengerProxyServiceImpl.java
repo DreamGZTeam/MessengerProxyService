@@ -31,12 +31,12 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
     //register bots as messengers
 
     try {
-        for (Configurator.Config botConfig : Configurator.getInstance().getBotFactory()) {
+        for (Configurator.MessengerConfig messengerConfig : Configurator.getInstance().getMessengerFactory()) {
           ClassLoader classLoader = IBot.class.getClassLoader();
-          Class botClass = classLoader.loadClass(botConfig.getParam("javaclass"));
+          Class botClass = classLoader.loadClass(messengerConfig.getBotConfig().getParam("javaclass"));
           Constructor<IBot> botConstructor = botClass.getConstructor();
           IBot bot = botConstructor.newInstance();
-          bot.init(botConfig);
+          bot.init(messengerConfig.getBotConfig());
           Messenger msgr = new Messenger(bot);
           messengers.put(msgr.getId(), msgr);
         }
