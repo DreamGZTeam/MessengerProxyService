@@ -4,6 +4,7 @@ import com.bftcom.bots.SlackBot;
 import com.bftcom.bots.TelegramBot;
 import com.bftcom.intf.IBot;
 import com.bftcom.ws.config.Configurator;
+import com.bftcom.ws.handlers.AbstractHandler;
 import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
 import com.bftcom.ws.objmodel.Chat;
 import com.bftcom.ws.objmodel.Messenger;
@@ -83,6 +84,16 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   @Override
   public void setInteractive(String messengerId, boolean interactive) {
     getMessenger(messengerId).setInteractiveMode(interactive);
+  }
+
+  @Override
+  public Set<AbstractHandler> getHandlers(String messengerId) {
+    return null;
+  }
+
+  @Override
+  public void setHandlerMode(String messenderId, String handlerId, boolean mode) {
+
   }
 
   private Messenger getMessenger(String messengerId) {

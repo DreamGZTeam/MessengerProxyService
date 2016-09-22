@@ -19,6 +19,7 @@ import static com.bftcom.ws.objmodel.Message.DIRECTION_MESSAGE_INCOMING;
 public class Messenger implements IMessenger, Serializable{
 
     public String id;
+    public String name;
     private IBot bot;
     private IStorage storage = new XMLStorage();
     private Map<String, Chat> chats = new HashMap<>();
@@ -26,7 +27,7 @@ public class Messenger implements IMessenger, Serializable{
     private boolean interactiveMode = false;
 
     public String getName() {
-        return bot != null ? bot.getName() : "";
+        return name;
     }
 
     public String getProtocol() {
@@ -38,6 +39,7 @@ public class Messenger implements IMessenger, Serializable{
             this.bot = bot;
             bot.setMessenger(this);
             id = bot.getBotToken();
+            name = bot.getName();
         }
         load();
     }
