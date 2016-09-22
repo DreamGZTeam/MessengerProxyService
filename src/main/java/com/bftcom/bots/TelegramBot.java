@@ -32,30 +32,6 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
     super();
   }
 
-//  public static TelegramBot getInstance() {
-//    if (telegramBot == null) {
-//      Configurator.Config cfg = Configurator.getInstance().getConfig(BOT_USERNAME);
-//      BotOptions options = null;
-//      if (cfg != null){
-//        setBotToken(cfg.getParam("token"));
-//        if (Boolean.parseBoolean(cfg.getParam("useProxy"))){
-//          options = new BotOptions();
-//          options.setProxyHost(cfg.getParam("proxyHost"));
-//          options.setProxyPort(Integer.parseInt(cfg.getParam("proxyPort")));
-//        }
-//      }
-//      telegramBot = options == null ? new TelegramBot() : new TelegramBot(options);
-//
-//      TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-//      try {
-//        telegramBotsApi.registerBot(telegramBot);
-//      } catch (TelegramApiException e) {
-//        BotLogger.error("Bot register error", e);
-//      }
-//    }
-//    return telegramBot;
-//  }
-
   @Override
   public void onUpdateReceived(Update update) {
     if (update.hasMessage()) {

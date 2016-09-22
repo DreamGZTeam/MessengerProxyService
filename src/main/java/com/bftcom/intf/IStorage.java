@@ -1,5 +1,6 @@
 package com.bftcom.intf;
 
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.objmodel.Messenger;
 
 /**
@@ -7,7 +8,9 @@ import com.bftcom.ws.objmodel.Messenger;
  */
 public interface IStorage {
 
-    void saveData(Messenger msgr);
+  void saveData(Messenger msgr);
 
-    void readData(Messenger msgr);
+  void readData(Messenger msgr);
+
+  void init(Configurator.Config cfg);
 }

@@ -1,6 +1,8 @@
 package com.bftcom.ws;
 
 import com.bftcom.intf.IBot;
+import com.bftcom.intf.IMessageHandler;
+import com.bftcom.intf.IStorage;
 import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.AbstractHandler;
 import com.bftcom.ws.objmodel.Chat;
@@ -29,29 +31,42 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   private void initService() {
     //register bots as messengers
 
-    try {
-        for (Configurator.MessengerConfig messengerConfig : Configurator.getInstance().getMessengerFactory()) {
-          ClassLoader classLoader = IBot.class.getClassLoader();
-          Class botClass = classLoader.loadClass(messengerConfig.getBotConfig().getParam("javaclass"));
-          Constructor<IBot> botConstructor = botClass.getConstructor();
-          IBot bot = botConstructor.newInstance();
-          bot.init(messengerConfig.getBotConfig());
-          Messenger msgr = new Messenger(bot);
-          messengers.put(msgr.getId(), msgr);
+    for (Configurator.MessengerConfig messengerConfig : Configurator.getInstance().getMessengerFactory()) {
+      try {
+        //Create messenger and bot
+        ClassLoader botClassLoader = IBot.class.getClassLoader();
+        Class botClass = botClassLoader.loadClass(messengerConfig.getBotConfig().getParam("javaclass"));
+        Constructor<IBot> botConstructor = botClass.getConstructor();
+        IBot bot = botConstructor.newInstance();
+        bot.init(messengerConfig.getBotConfig());
+        Messenger msgr = new Messenger(bot);
+        messengers.put(msgr.getId(), msgr);
+        //Create message handles chain
+        msgr.getMessageProcessor().clearHandlesChain();
+        for (Configurator.Config handlerConfig : messengerConfig.getHandlers()) {
+          ClassLoader handlerClassLoader = IMessageHandler.class.getClassLoader();
+          Class handlerClass = handlerClassLoader.loadClass(handlerConfig.getParam("javaclass"));
+          Constructor<IMessageHandler> handlerConstructor = handlerClass.getConstructor();
+          IMessageHandler handler = handlerConstructor.newInstance();
+          handler.init(handlerConfig);
+          msgr.getMessageProcessor().addHandler(handler);
         }
-    }
-    catch (Exception e){
+        //Create storage
+        if (messengerConfig.getStorage() != null) {
+          ClassLoader storageClassLoader = IStorage.class.getClassLoader();
+          Class storageClass = storageClassLoader.loadClass(messengerConfig.getStorage().getParam("javaclass"));
+          Constructor<IStorage> storageConstructor = storageClass.getConstructor();
+          IStorage storage = storageConstructor.newInstance();
+          storage.init(messengerConfig.getStorage());
+          msgr.setStorage(storage);
+          //Load contacts and history
+          msgr.load();
+        }
+      }
+      catch (Exception e) {
         e.printStackTrace();
+      }
     }
-
-    //Telegramm bot
-//    Messenger msgr = new Messenger(TelegramBot.getInstance());
-//    //Интерактивный обработчик сообщений
-//    msgr.getMessageProcessor().addHandler(new ElizaMessageHandler());
-//    messengers.put(msgr.getId(), msgr);
-//
-//    Messenger slackMessenger = new Messenger(SlackBot.getInstance());
-//    messengers.put(slackMessenger.getId(), slackMessenger);
   }
 
   @Override
@@ -61,7 +76,7 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
 
   @Override
   public List<Messenger> getMessengers(String protocol) {
-    return messengers.values().stream().filter(m->m.getProtocol().equals(protocol)).collect(Collectors.toList());
+    return messengers.values().stream().filter(m -> m.getProtocol().equals(protocol)).collect(Collectors.toList());
   }
 
   @Override
@@ -85,23 +100,18 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public void setInteractive(String messengerId, boolean interactive) {
-    getMessenger(messengerId).setInteractiveMode(interactive);
+  public List<AbstractHandler> getHandlers(String messengerId) {
+    return getMessenger(messengerId).getMessageProcessor().getMessageHandlersChain();
   }
 
   @Override
-  public Set<AbstractHandler> getHandlers(String messengerId) {
-    return null;
-  }
-
-  @Override
-  public void setHandlerMode(String messenderId, String handlerId, boolean mode) {
-
+  public void setHandlerMode(String messengerId, String handlerId, boolean mode) {
+    getMessenger(messengerId).getMessageProcessor().getHandler(handlerId).setActive(mode);
   }
 
   private Messenger getMessenger(String messengerId) {
     if (!messengers.containsKey(messengerId))
       throw new RuntimeException("Messenger with ID " + messengerId + " not found!");
-    return  messengers.get(messengerId);
+    return messengers.get(messengerId);
   }
 }

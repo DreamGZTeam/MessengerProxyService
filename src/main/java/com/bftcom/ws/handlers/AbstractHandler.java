@@ -1,6 +1,7 @@
 package com.bftcom.ws.handlers;
 
 import com.bftcom.intf.IMessageHandler;
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.objmodel.Message;
 
 import java.io.Serializable;
@@ -11,10 +12,15 @@ import java.io.Serializable;
 public abstract class AbstractHandler implements IMessageHandler, Serializable {
   public String name;
   public String id;
+  public boolean active;
 
-  public AbstractHandler(String name, String id) {
-    this.name = name;
-    this.id = id;
+  public AbstractHandler() {
+    active = false;
+  }
+
+  public void init(Configurator.Config cfg){
+    name = cfg.getParam("name");
+    id = cfg.getParam("id");
   }
 
   public String getName() {
@@ -23,6 +29,10 @@ public abstract class AbstractHandler implements IMessageHandler, Serializable {
 
   public String getId() {
     return id;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
 
   @Override

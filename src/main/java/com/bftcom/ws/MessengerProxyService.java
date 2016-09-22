@@ -47,9 +47,12 @@ public interface MessengerProxyService {
   /* Включает интерактивный режим. В этом режиме messenger сам отвечает на сообщения
     предварительно обработав входящее сообщение всеми своими хендлерами
   */
-  void setInteractive(String messengerId, boolean interactive);
 
-  Set<AbstractHandler> getHandlers(String messengerId);
+  /* Возвращает цепочку обработчиков сообщений.
+  */
+  List<AbstractHandler> getHandlers(String messengerId);
 
-  void setHandlerMode(String messenderId, String handlerId, boolean mode);
+  /* Включает или выключает указанный обработчик сообщений
+  */
+  void setHandlerMode(String messengerId, String handlerId, boolean mode);
 }
