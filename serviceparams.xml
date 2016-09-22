@@ -1,9 +1,9 @@
 <ServiceParams>
     <Messenger>
         <javaclass>com.bftcom.bots.TelegramBot</javaclass>
-        <name>SlackBot</name>
-        <protocol>Slack</protocol>
-        <token><![CDATA[eG94Yi04MjA4MzAyNzQ1OS1qN0xESjZZelhCSjZZUVEwZE9EbGdEVVQ=]]></token>
+        <name>GZGZ2Bot</name>
+        <protocol>Telegram</protocol>
+        <token><![CDATA[MjYzMjA5NTI3OkFBRVRRWDRraG5WY2JkNXhTdzl1UUNCUlhKOE5fdnVWdVlV]]></token>
         <useProxy><![CDATA[false]]></useProxy>
         <proxyHost><![CDATA[proxy.bftcom.com]]></proxyHost>
         <proxyPort><![CDATA[8080]]></proxyPort>
@@ -16,9 +16,9 @@
     </Messenger>
     <Messenger>
         <javaclass>com.bftcom.bots.SlackBot</javaclass>
-        <name>GZGZ2Bot</name>
-        <protocol>Telegram</protocol>
-        <token><![CDATA[MjYzMjA5NTI3OkFBRVRRWDRraG5WY2JkNXhTdzl1UUNCUlhKOE5fdnVWdVlV]]></token>
+        <name>SlackBot</name>
+        <protocol>Slack</protocol>
+        <token><![CDATA[eG94Yi04MjA4MzAyNzQ1OS1qN0xESjZZelhCSjZZUVEwZE9EbGdEVVQ=]]></token>
         <useProxy><![CDATA[false]]></useProxy>
         <proxyHost><![CDATA[proxy.bftcom.com]]></proxyHost>
         <proxyPort><![CDATA[8080]]></proxyPort>

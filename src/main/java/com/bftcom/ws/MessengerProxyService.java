@@ -2,8 +2,9 @@ package com.bftcom.ws;
 
 import com.bftcom.ws.handlers.AbstractHandler;
 import com.bftcom.ws.objmodel.Chat;
+import com.bftcom.ws.objmodel.Contact;
+import com.bftcom.ws.objmodel.MessageInfo;
 import com.bftcom.ws.objmodel.Messenger;
-import com.bftcom.ws.objmodel.TextMessage;
 
 import javax.jws.WebService;
 import java.util.List;
@@ -39,7 +40,9 @@ public interface MessengerProxyService {
     <direction>direction</direction>
     <text>message text</text>
   */
-  Set<TextMessage> getHistory(String messengerId, String chatId);
+  Set<MessageInfo> getHistory(String messengerId, String chatId);
+
+  Contact getContact(String messengerId, String contactId);
 
   /* Включает интерактивный режим. В этом режиме messenger сам отвечает на сообщения
     предварительно обработав входящее сообщение всеми своими хендлерами

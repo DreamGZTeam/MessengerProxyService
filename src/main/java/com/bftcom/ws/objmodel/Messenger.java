@@ -104,9 +104,11 @@ public class Messenger implements IMessenger, Serializable{
         }
 
         // добавим в чат новое сообщение и пользователя
-        TextMessage incomingMessage = new TextMessage(Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
+        TextMessage incomingMessage = new TextMessage(
+            Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
             DIRECTION_MESSAGE_INCOMING,
-            update.getText());
+            update.getText(),
+            update.getContactId());
         chat.addMessage(incomingMessage);
         chat.addContact(new Contact(update.getContactId(), update.getFirstName(), update.getLastName(), update.getUserName()));
 
@@ -118,8 +120,14 @@ public class Messenger implements IMessenger, Serializable{
         save();
     }
 
-    public Set<TextMessage> getHistory(String chatId){
-        return getChatById(chatId).getHistory();
+    public Set<MessageInfo> getHistory(String chatId){
+        return getChatById(chatId).getFullHistory();
+    }
+
+    public Contact getContact(String contactId) {
+        return chats.values().stream()
+            .flatMap(e -> e.getContacts().values().stream())
+            .filter(e -> e.getId().equals(contactId)).findFirst().orElse(null);
     }
 
     public MessageProcessor getMessageProcessor() {

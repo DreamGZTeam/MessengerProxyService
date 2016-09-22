@@ -49,6 +49,8 @@ public class XMLStorage implements IStorage {
                     history.setAttribute("direction", String.valueOf(h.getDirection()));
                     history.setAttribute("uid", String.valueOf(h.getUid()));
                     history.setAttribute("date", String.valueOf(h.getDate().getTime()));
+                    if (h.getContactId() != null && !h.getContactId().isEmpty())
+                        history.setAttribute("contactId", h.getContactId());
                     switch (h.getMessageType()){
                         case MESSAGE_TYPE_TEXT:
                             Element messageBody = document.createElement("MessageBody");
@@ -63,7 +65,7 @@ public class XMLStorage implements IStorage {
                 chat.appendChild(messageHistory);
                 //Contacts
                 Element contacts = document.createElement("Contacts");
-                for(Contact cn: c.getContacts()){
+                for(Contact cn: c.getContacts().values()){
                     Element contact = document.createElement("Contact");
                     contact.setAttribute("id", cn.getId());
                     contact.setAttribute("userName", cn.getUserName());
@@ -115,9 +117,11 @@ public class XMLStorage implements IStorage {
                         int messageType = Integer.parseInt(history.getAttribute("messageType"));
                         switch (messageType){
                             case MESSAGE_TYPE_TEXT:
-                                c.addMessage(new TextMessage(new Date(Long.parseLong(history.getAttribute("date"))),
-                                             Integer.parseInt(history.getAttribute("direction")),
-                                             (history.getElementsByTagName("MessageBody").item(0)).getFirstChild().getNodeValue()));
+                                c.addMessage(new TextMessage(
+                                    new Date(Long.parseLong(history.getAttribute("date"))),
+                                    Integer.parseInt(history.getAttribute("direction")),
+                                    (history.getElementsByTagName("MessageBody").item(0)).getFirstChild().getNodeValue(),
+                                    history.hasAttribute("contactId") ? history.getAttribute("contactId") : null));
                             break;
                             default:
                         }
@@ -130,7 +134,7 @@ public class XMLStorage implements IStorage {
                     Element contact = (Element) contacts.item(n);
                     String contactId = contact.getAttribute("id");
                     //Такой контакт уже есть, пропускаем
-                    if (msgr.getChatById(c.getId()).getContacts().contains(contactId))
+                    if (msgr.getChatById(c.getId()).getContacts().containsKey(contactId))
                         continue;
                     c.addContact(new Contact(contactId,
                             contact.getAttribute("firstName"),

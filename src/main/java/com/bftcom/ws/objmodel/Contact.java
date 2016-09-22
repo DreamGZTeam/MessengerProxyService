@@ -13,6 +13,8 @@ public class Contact implements Serializable {
   public String firstName;
   public String lastName;
 
+  public Contact() {}
+
   public Contact(String id, String firstName, String lastName, String userName) {
     this.id = id;
     this.firstName = firstName;

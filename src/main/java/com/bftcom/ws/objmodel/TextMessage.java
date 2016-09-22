@@ -7,15 +7,15 @@ import java.util.Date;
  */
 public class TextMessage extends Message {
 
-    public String text;
+    private String text;
 
     public TextMessage(String messageText) {
-        super(MESSAGE_TYPE_TEXT, new Date(), DIRECTION_MESSAGE_OUTGOING);
+        super(MESSAGE_TYPE_TEXT, new Date(), DIRECTION_MESSAGE_OUTGOING, null);
         this.text = messageText;
     }
 
-    public TextMessage(Date date, int direction, String text) {
-        super(MESSAGE_TYPE_TEXT, date, direction);
+    public TextMessage(Date date, int direction, String text, String contactId) {
+        super(MESSAGE_TYPE_TEXT, date, direction, contactId);
         this.text = text;
     }
 

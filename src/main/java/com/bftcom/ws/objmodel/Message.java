@@ -16,12 +16,14 @@ public abstract class Message implements Comparable, Serializable {
   public Date date;
   public int direction;
   private long uid;
+  private String contactId;
 
-  public Message(int messageType, Date date, int direction) {
+  public Message(int messageType, Date date, int direction, String contactId) {
     this.messageType = messageType;
     this.date = date;
     this.direction = direction;
     this.uid = new Date().getTime();
+    this.contactId = contactId;
   }
 
   public int getMessageType() {
@@ -38,6 +40,10 @@ public abstract class Message implements Comparable, Serializable {
 
   public long getUid() {
     return uid;
+  }
+
+  public String getContactId() {
+    return contactId;
   }
 
   @Override

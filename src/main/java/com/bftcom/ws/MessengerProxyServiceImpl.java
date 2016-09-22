@@ -1,14 +1,12 @@
 package com.bftcom.ws;
 
-import com.bftcom.bots.SlackBot;
-import com.bftcom.bots.TelegramBot;
 import com.bftcom.intf.IBot;
 import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.AbstractHandler;
-import com.bftcom.ws.handlers.eliza.ElizaMessageHandler;
 import com.bftcom.ws.objmodel.Chat;
+import com.bftcom.ws.objmodel.Contact;
+import com.bftcom.ws.objmodel.MessageInfo;
 import com.bftcom.ws.objmodel.Messenger;
-import com.bftcom.ws.objmodel.TextMessage;
 
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
@@ -77,8 +75,13 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   }
 
   @Override
-  public Set<TextMessage> getHistory(String messengerId, String chatId) {
+  public Set<MessageInfo> getHistory(String messengerId, String chatId) {
     return getMessenger(messengerId).getHistory(chatId);
+  }
+
+  @Override
+  public Contact getContact(String messengerId, String contactId) {
+    return getMessenger(messengerId).getContact(contactId);
   }
 
   @Override
