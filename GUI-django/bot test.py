@@ -3,38 +3,48 @@ from suds.client import Client
 url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
 client = Client(url, faults=False)
 client.set_options(service='MessengerProxyServiceImplService')
-print (client)
-a = client.service.getProtocols()
-print(a[1])
-b = client.service.getMessengers('Telegram')
-#            getChats(xs:string arg0)
- #           getHistory(xs:string arg0, xs:string arg1)
-  #          getMessengers(xs:string arg0)
-   #         getProtocols()
-    #        sendTextMessage(xs:string arg0, xs:string arg1, xs:string arg2)
-     #       setInteractive(xs:string arg0, xs:boolean arg1)
-#d = client.service.getHistory(bb, ii[0])   
-b = client.service.getMessengers('Telegram')
-b = b[1]
-messeger_id = b[0].id
+#a = client.service.getProtocols()
+#b = client.service.getMessengers(a[1])
+print(client)
+bot_name = 'Telegram'
+messeger_name = 'GZGZ2Bot'
+
+url = 'http://localhost:8080/MessengerProxyService/MessengerProxyService?wsdl'
+client = Client(url, faults=False)
+client.set_options(service='MessengerProxyServiceImplService', port='MessengerProxyServiceImplPort')
+
+messeger_name = 'GZGZ2Bot'
+bot_name = 'Telegram'
+contact_name = 'GZGroup'
+b = client.service.getMessengers(bot_name)
+for i in b[1]:
+    if i.name == messeger_name:
+        messeger_id = i.id
 c = client.service.getChats(messeger_id)
-print(c[1])
-#c = c[1]
-#messeger_chats = c[0].id
-messeger_chats = [i.id for i in c[1]]
-print(messeger_chats)
-d = client.service.getHistory(messeger_id,messeger_chats)
-print(d[1])
+for i in c[1]:
+    if i.name == contact_name:
+        contact_id = i.id
+d = client.service.getHistory(messeger_id, contact_id)
 hist = []
-for messeg in d[1]:
-    hist.append([messeg.date, messeg.direction, messeg.text])
-print(hist)
-mess_name = 'TelegramBot_1'
-a = client.service.getProtocols()
-for i in a[1]:
-    b = client.service.getMessengers(i)
-    for ii in b[1]:
-    	print(ii)
-    	if ii.name == mess_name:
-            messeger_id = ii.id
-print(messeger_id)
+for i in d[1]:
+    print(i.message)
+#c = client.service.getChats(meeseger_id)
+#contacts = []
+#if c[1] != []:
+#    for ii in c[1]:
+#        contacts.append(ii[1])
+#    print(contacts)
+
+
+
+"""a = client.service.getProtocols()
+bot_list = []
+contacts_list = []
+for bot in a[1]:
+    b = client.service.getMessengers(bot)
+    for mes in b[1]:
+        if mes.name == messeger_name:
+            c = client.service.getChats(mes.id)
+            for contacts in c[1]:
+                contacts_list.append(contacts.name)
+print (contacts_list)"""

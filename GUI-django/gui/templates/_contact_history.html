@@ -1,13 +1,13 @@
 {% for i in history_list %}
-{% if i.direction == 0 %}
+{% if i.0 == 0 %}
 <div class='col-md-10'> 
-  <p> {{i.date}} </p>
-  <p> {{i.text}} </p>
+  <p> {{i.1}} </p>
+  <p> {{i.2}} </p>
 </div>
 {% else %}
 <div class='col-md-10 col-md-offset-1'> 
-  <p> {{i.date}} </p>
-  <p> {{i.text}} </p>
+  <p> {{i.1}} </p>
+  <p> {{i.2}} </p>
 </div>
 {% endif %}
 {% endfor %}

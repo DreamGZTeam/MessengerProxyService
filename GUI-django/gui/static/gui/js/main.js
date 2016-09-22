@@ -1,48 +1,38 @@
-$(document).ready( function () {
-    // Выбор бота
-    $('#navbar').one('click', 'p', function(){
-
+$(document).ready(function () {
+// Выбор бота
+    $('#menu_bot').on('click', 'p', function(){
+        var s_bot = this.id;
+        bot_active(s_bot);
+        window.s_bot = s_bot;
     });
-    // Отправка сообщения
-    $('#message_form').on('submit', function(){
-        event.preventDefault();
-        var messeger_active = $('#messeger_list .active').id;
-        var contact_active = $('#contact_list .active').id;
-        console.log('bot = '+ bot_active + 'contact_active = '+ contact_active);
-        console.log("form submitted! " + $('#message textarea').val());
-        message($('#message textarea').val(), messeger_active, contact_active);
+
+// Выбор мессейджера
+    $('#menu_messeger').on('click', 'p', function(){
+        var s_messeger = this.id;
+        messeger(s_bot, s_messeger);
+        window.s_messeger = s_messeger;
+    });
+    $('#contact_list').on('click', 'p', function(){
+        var s_contact = this.id;
+        history(s_bot, s_messeger, s_contact);
+        window.s_contact = s_contact;
+    });
+
+    $('#message').on('submit', function(){
+        var message_text = $('textarea').text;
+        console.log(message_text)
+        message_send(s_bot, s_messeger, s_contact, message_text);
     });
 });
 
-//Получаем список контактов бота
-function messeger(bot_name) {
-    $(this).addClass('bot_active')
-    $.ajax({
-        url : "bot", // the endpoint
-        type : "GET", // http method
-        data : {'bot' : bot_name},
-        success : function(json){
-            $('#contact_list .col-md-12').remove();
-            $('#contact_list').append(json);
-            $('#contact_list').on('click', 'p', function(){
-                    $('#contact_list p').css('background-color', '');
-                    $('#contact_list p').removeClass('contact_active')
-                    var username = this.id;
-                    history(username, bot_name);
-                    $(this).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
-                    $(this).addClass('contact_active')
-                });
-        }
-    });
-};
 
 //получаем историю по выбранному контакту
-function history(username, bot_name) {
-//    console.log('History called for ' + username);
+function history(s_bot, s_messeger, s_contact) {
+    console.log('History called for ' + s_contact);
     $.ajax({
-        url : 'user',
+        url : 'history',
         type : 'GET',
-        data : { 'bot' : bot_name, 'user' : username},
+        data : { 'bot_name' : s_bot, 'messeger_name' : s_messeger, 'contact_name' : s_contact},
         success : function(json){
             $('#history_list .col-md-12').remove();
             $('#history_list').append(json);
@@ -50,13 +40,33 @@ function history(username, bot_name) {
     });
 };
 
+function bot_active(s_bot){
+    $('#menu_bot p').css({'background-color' : ''});
+    $(s_bot).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
+};
+
+function messeger(s_bot,s_messeger) {
+    $('#menu_messeger p').css({'background-color' : ''});
+    $(s_messeger).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
+    console.log('ajax call ' + s_bot + ' ' + s_messeger)
+    $.ajax({
+        url : "messeger", // the endpoint
+        type : "GET", // http method
+        data : {'bot_name': s_bot, 'messeger_name' : s_messeger},
+        success : function(json){
+            $('#contact_list .col-md-12').remove();
+            $('#contact_list').append(json);
+        }
+    }); 
+};
 //Отправка сообщения
-function message(message,messeger_active, contact_active) {
+
+function message_send(s_bot, s_messeger, s_contact, message_text) {
     event.preventDefault();
     $.ajax({
-        url : 'message',
+        url : 'message_send',
         type : 'post',
-        data : { 'text' : message, 'messeger_active' : messeger_active, contact_active: contact_active},
+        data : { 'bot_name' : s_bot, 'messeger_name' : s_messeger, 'contact_name' : s_contact, 'text' : message_text},
         success : function(json){
             console.log('Success ' + json['text']);
             $('#history_list').append(json);
@@ -64,6 +74,8 @@ function message(message,messeger_active, contact_active) {
         }
     });
 };
+
+
 
 // Стандартную функция передачи токена защиты для форм
 
