@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class TextMessage extends Message {
 
-    private String text;
+    public String text;
 
     public TextMessage(String messageText) {
         super(MESSAGE_TYPE_TEXT, new Date(), DIRECTION_MESSAGE_OUTGOING);
