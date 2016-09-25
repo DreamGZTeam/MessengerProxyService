@@ -22,13 +22,11 @@ import java.util.stream.Collectors;
 /**
  * Created by Artem on 06.09.2016.
  */
-@WebService(endpointInterface = "com.bftcom.ws.MessengerProxyService")
 public class MessengerProxyServiceImpl implements MessengerProxyService {
 
   Map<String, Messenger> messengers = new HashMap<>();
 
-  @PostConstruct
-  private void initService() {
+  public MessengerProxyServiceImpl() {
     //register bots as messengers
 
     for (Configurator.MessengerConfig messengerConfig : Configurator.getInstance().getMessengerFactory()) {

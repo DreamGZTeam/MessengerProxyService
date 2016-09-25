@@ -1,14 +1,23 @@
 <ServiceParams>
     <Messenger>
         <javaclass>com.bftcom.bots.TelegramBot</javaclass>
-        <name>GZGZ2Bot</name>
+        <!--<name>GZGZBot</name>-->
+        <!--<name>GZG2ZBot</name>-->
+        <name>GZG3ZBot</name>
         <protocol>Telegram</protocol>
-        <token><![CDATA[MjYzMjA5NTI3OkFBRVRRWDRraG5WY2JkNXhTdzl1UUNCUlhKOE5fdnVWdVlV]]></token>
+        <!--<token><![CDATA[MTgxMDAwNTQyOkFBSExyU2pEUEtoSlFVZThBV3JDM1JaalFjWElUNDZfWTJF]]></token>-->
+        <!--<token><![CDATA[MjYzMjA5NTI3OkFBRVRRWDRraG5WY2JkNXhTdzl1UUNCUlhKOE5fdnVWdVlV]]></token>-->
+        <token><![CDATA[MjkxMjY2NTAzOkFBSFA0bldjMzJiNzIwTkhxQlA1NjUwbVJwMGtMQ294ZDNn]]></token>
         <Handlers>
             <Handler>
                 <javaclass>com.bftcom.ws.handlers.eliza.ElizaMessageHandler</javaclass>
                 <name>Eliza</name>
                 <id>f0179594-18ad-4d65-9769-dfcfe6d48ea2</id>
+            </Handler>
+            <Handler>
+                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateHandler</javaclass>
+                <name>YandexTranslate</name>
+                <id>c21cea96-29f2-46c7-bf25-61da2841c05b</id>
             </Handler>
         </Handlers>
         <Storage>

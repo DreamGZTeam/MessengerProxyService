@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by d.dyldaev on 07.09.16.
  */
-public abstract class Message implements Comparable, Serializable {
+public abstract class Message implements Comparable<Message>, Serializable {
   public static final int MESSAGE_TYPE_TEXT = 0;
   public static final int DIRECTION_MESSAGE_INCOMING = 0;
   public static final int DIRECTION_MESSAGE_OUTGOING = 1;
@@ -47,10 +47,10 @@ public abstract class Message implements Comparable, Serializable {
   }
 
   @Override
-  public int compareTo(Object o) {
-    if (((Message) o).date.compareTo(this.date) == 0)
-      return Long.compare(((Message) o).getUid(), this.getUid());
+  public int compareTo(Message o) {
+    if (o.date.compareTo(this.date) == 0)
+      return Long.compare(o.getUid(), this.getUid());
     else
-      return ((Message) o).date.compareTo(this.date);
+      return o.date.compareTo(this.date);
   }
 }

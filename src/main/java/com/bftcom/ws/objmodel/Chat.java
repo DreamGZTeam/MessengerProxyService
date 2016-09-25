@@ -41,7 +41,7 @@ public class Chat implements Serializable {
   }
 
   public Set<MessageInfo> getFullHistory() {
-    return history.stream().map(e -> new MessageInfo(e, contacts.get(e.getContactId()))).collect(Collectors.toSet());
+    return history.stream().map(e -> new MessageInfo(e, contacts.get(e.getContactId()))).collect(Collectors.toCollection(TreeSet::new));
   }
 
   public void addMessage(TextMessage msg) {

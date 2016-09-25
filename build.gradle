@@ -1,10 +1,20 @@
+buildscript {
+  ext {
+    springBootVersion = '1.4.1.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
 apply plugin: 'war'
-apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
-apply plugin: 'java'
+apply plugin: 'spring-boot'
 apply plugin: 'idea'
 
 project.ext {
-  springVersion = "4.1.9.RELEASE"
   cxfVersion = "3.1.7"
   
   cxfArtifacts = [
@@ -14,14 +24,6 @@ project.ext {
       'cxf-rt-rs-client',
       'cxf-rt-rs-service-description',
   ]
-  
-  springArtifacts = [
-      'spring-beans',
-      'spring-context',
-      'spring-core',
-      'spring-aop',
-      'spring-web'
-  ]
 }
 
 repositories {
@@ -29,13 +31,19 @@ repositories {
   mavenCentral()
 }
 
+springBoot {
+  mainClass = "com.bftcom.ws.WebServiceConfiguration"
+}
+
 dependencies {
   compile 'com.github.rubenlagus:TelegramBots:v2.3.5'
   compile 'com.ullink.slack:simpleslackapi:0.6.0'
 
-  springArtifacts.each { artifact ->
-    compile "org.springframework:$artifact:$springVersion"
-  }
+  compile 'org.springframework.boot:spring-boot-starter-web'
+  providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+  compile 'org.apache.httpcomponents:httpclient:4.5.2'
+  compile 'com.google.code.gson:gson:2.7'
 
   cxfArtifacts.each { artifact ->
     compile "org.apache.cxf:$artifact:$cxfVersion"
