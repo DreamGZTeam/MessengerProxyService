@@ -10,13 +10,18 @@
         <token><![CDATA[MjkxMjY2NTAzOkFBSFA0bldjMzJiNzIwTkhxQlA1NjUwbVJwMGtMQ294ZDNn]]></token>
         <Handlers>
             <Handler>
+                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateRuEnHandler</javaclass>
+                <name>YandexTranslateRuEn</name>
+                <id>7abcc032-fc99-467a-ad75-2fbeefdbefdd</id>
+            </Handler>
+            <Handler>
                 <javaclass>com.bftcom.ws.handlers.eliza.ElizaMessageHandler</javaclass>
                 <name>Eliza</name>
                 <id>f0179594-18ad-4d65-9769-dfcfe6d48ea2</id>
             </Handler>
             <Handler>
-                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateHandler</javaclass>
-                <name>YandexTranslate</name>
+                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateEnRuHandler</javaclass>
+                <name>YandexTranslateEnRu</name>
                 <id>c21cea96-29f2-46c7-bf25-61da2841c05b</id>
             </Handler>
         </Handlers>

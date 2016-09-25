@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by Artem on 25.09.2016.
  */
-public class YandexTranslateHandler extends AbstractHandler {
+public class YandexTranslateEnRuHandler extends AbstractHandler {
   @Override
   public void handleMessage(Message inMessage) {
     if (inMessage.getMessageType() == Message.MESSAGE_TYPE_TEXT) {
@@ -37,7 +37,7 @@ public class YandexTranslateHandler extends AbstractHandler {
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("text", ((TextMessage) inMessage).getText()));
 
-        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        post.setEntity(new UrlEncodedFormEntity(urlParameters, StandardCharsets.UTF_8));
 
         try (CloseableHttpResponse response = client.execute(post)) {
           if (response.getStatusLine().getStatusCode() != 200) {

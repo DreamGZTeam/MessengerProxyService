@@ -50,6 +50,14 @@ dependencies {
   }
 }
 
+task copyConfigFiles(type: Copy) {
+  from('/')
+  into('build/libs')
+  include(['serviceparams.xml', 'eliza.script'])
+}
+
+build.dependsOn copyConfigFiles
+
 // New configuration for CXF dependencies.
 configurations { cxfTool }
 ext {
@@ -84,4 +92,18 @@ task wsdl2java(type: JavaExec) {
   doLast {
     println "[INFO] Client files generated"
   }
+}
+
+task installPyLibs << {
+  exec {
+    commandLine 'pip', 'install', 'Django==1.10.1'
+  }
+  exec {
+    commandLine 'pip', 'install', 'suds-jurko'
+  }
+}
+
+task startPyGUI(type:Exec) {
+  workingDir './GUI-django'
+  commandLine 'python', 'manage.py', 'runserver'
 }
