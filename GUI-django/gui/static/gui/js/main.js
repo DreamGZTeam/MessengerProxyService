@@ -1,20 +1,20 @@
 $(document).ready(function () {
 // Выбор бота
     $('#menu_protocol').on('click', 'p', function(){
-        var s_protocol = this.id;
+        var s_protocol = this;
         window.s_protocol = s_protocol;
         protocol(s_protocol);
     });
 
 // Выбор мессейджера
     $('#menu_messeger').on('click', 'p', function(){
-        var s_messeger = this.id;
+        var s_messeger = this;
         window.s_messeger = s_messeger;
         messeger(s_protocol, s_messeger);
     });
 // Выбор контакта
     $('#contact_list').on('click', 'p', function(){
-        var s_contact = this.id;
+        var s_contact = this;
         window.s_contact = s_contact;
         history(s_protocol, s_messeger, s_contact);
     });
@@ -24,7 +24,7 @@ $(document).ready(function () {
         message_send(s_protocol, s_messeger, s_contact, message_text);
     });
     $('#menu_handler').on('click', 'p', function(){
-        var s_handler = this.id;
+        var s_handler = this;
         window.s_handler = s_handler;
         handler(s_protocol, s_messeger, s_handler);
     });
@@ -48,7 +48,7 @@ function protocol(s_protocol){
     $.ajax({
         url : "protocol", 
         type : "GET", 
-        data : {'protocol_name': s_protocol},
+        data : {'protocol_name': s_protocol.id},
         success : function(json){
             $('#menu_messeger').append(json);
             $('#menu_protocol p').css({'background-color' : ''});
@@ -63,7 +63,7 @@ function messeger(s_protocol,s_messeger) {
     $.ajax({
         url : "messeger", 
         type : "GET", 
-        data : {'protocol_name': s_protocol, 'messeger_name' : s_messeger},
+        data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id},
         success : function(json){
             $('#contact_list .col-md-12').remove();
             $('#contact_list').append(json);
@@ -72,7 +72,7 @@ function messeger(s_protocol,s_messeger) {
     $.ajax({
         url : "handler_list", 
         type : "GET", 
-        data : {'protocol_name': s_protocol, 'messeger_name' : s_messeger},
+        data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id},
         success : function(json){
             $('#menu_handler button').remove();
             $('#menu_handler').append(json);
@@ -86,7 +86,7 @@ function message_send(s_protocol, s_messeger, s_contact, message_text) {
     $.ajax({
         url : 'message_send',
         type : 'post',
-        data : { 'protocol_name' : s_protocol, 'messeger_name' : s_messeger, 'contact_name' : s_contact, 'text' : message_text},
+        data : { 'protocol_name' : s_protocol.id, 'messeger_name' : s_messeger.id, 'contact_name' : s_contact.id, 'text' : message_text},
         success : function(json){
             $('textarea').val('');
             history(s_protocol, s_messeger, s_contact);
@@ -99,12 +99,12 @@ function history(s_protocol, s_messeger, s_contact) {
     $.ajax({
         url : 'history',
         type : 'GET',
-        data : { 'protocol_name' : s_protocol, 'messeger_name' : s_messeger, 'contact_name' : s_contact},
+        data : { 'protocol_name' : s_protocol.id, 'messeger_name' : s_messeger.id, 'contact_name' : s_contact.id},
         success : function(json){
             $('#history_list .col-md-12').remove();
             $('#history_list').append(json);
             $('#contact_list').css({'background-color' : ''});
-            $(s_contact).css({'background-color': '#D9EDFA', 'border-radius' : '5px'});
+            $(s_contact).css({'background-color': '#2871af', 'border-radius' : '5px'});
         }
     });
     var height = $('#history_list.col-md-12.bg-info').height();
@@ -118,7 +118,7 @@ function handler(s_protocol,s_messeger, s_handler) {
     $.ajax({
         url : "set_interactive", 
         type : "GET", 
-        data : {'protocol_name': s_protocol, 'messeger_name' : s_messeger, 'handler_name' : s_handler},
+        data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id, 'handler_name' : s_handler.id},
         success : function(json){
             $('#handler_status button').text(json['text']);
         }
