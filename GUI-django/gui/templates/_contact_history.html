@@ -1,13 +1,13 @@
 {% for i in history_list %}
-{% if i.0 == 0 %}
-<div class='col-md-10'> 
-  <p> {{i.1}} </p>
-  <p> {{i.2}} </p>
+{% if i.0 == 1 %}
+<div class='row col-md-12'> 
+  <p class='text-left' style='color:grey;'> {{i.1}} </p>
+  <p class='text-left' style='background-color:#D9EDFA;'> {{i.2}} </p>
 </div>
 {% else %}
-<div class='col-md-10 col-md-offset-1'> 
-  <p> {{i.1}} </p>
-  <p> {{i.2}} </p>
+<div class='row col-md-12'> 
+  <p class='text-right' style='color:grey;'> {{i.1}} </p>
+  <p class='text-right' style='background-color:#D9EDFA;'> {{i.2}} </p>
 </div>
 {% endif %}
 {% endfor %}

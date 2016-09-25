@@ -1,0 +1,8 @@
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Messegers <span class="caret"></span></button>
+  <ul class="dropdown-menu" role="menu">
+    {% for messeger in messeger_list %}
+    <div> 
+      <p id='{{messeger.name}}' style='color:black;'> {{messeger.name}} </p> 
+    </div>
+    {% endfor %}
+  </ul>

@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+ Handlers <span class="caret"></span></button>
+  <ul class="dropdown-menu" role="menu">
+    {% for i in handler_list %}
+    <div> 
+      <p id='{{i}}' style='color:black;'> {{i}} </p> 
+    </div>
+    {% endfor %}
+  </ul>

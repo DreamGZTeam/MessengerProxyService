@@ -17,25 +17,48 @@
   <title>Bot GUI</title>
 
 </head>
-<body>
-  <div class='row' style='height:4%;'>
-    <div class='col-md-12' id='navbar'>
-    {% block bots %} {% include '_bot_list.html' %} {% endblock %}
+<body">
+<div class='row' style='height:4%;' id='navbar'>
+    <div class="btn-group col-md-offset-1" id='menu_protocol' >
+    {% block protocol %} {% include '_protocol_list.html' %} {% endblock %}
     </div>
-  </div>
-  
-  <div class='row' style="height:96%;">
-    <div class='col-md-1' style="height:100%;"></div>
+    <div class="btn-group" id='menu_messeger'>
+        {% block messeger %} {% include '_messeger_list.html' %} {% endblock %}
+    </div>
+    <div class='btn-group col-md-offset-1' id='menu_handler'> 
+        {% block handlers %} {% include '_handler_list.html' %} {% endblock %}
+    </div>
     
-    <div class='col-md-3 bg-primary' id='contact_list' style="height:100%; color:white;"> 
+    <div class='btn-group col-md-offset-3'>
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Handler status </button>
+    </div>
+
+    <div class='btn-group' id='handler_status'>
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    OFF </button>
+    </div>
+    <div class='btn-group' id='inc'>
+    <button type="button" class="btn btn-default">
+    <a id='inc' style='text-decoration: none;'>DreamGZTeam</a>
+    </button>
+    </div>
+
+  </div>
+
+  <div class='row' style="height:96%;">
+      <div class='col-md-1' style="height:100%;"></div>
+    
+    <div class='col-md-3 bg-primary' id='contact_list' style="height:100%; color:white; overflow:auto; "> 
       {% block contacts %} {% include '_contact_list.html' %} {% endblock %}
     </div>
-    
+
     <div class='col-md-7 bg-info' style="height:100%;">
-        <div class='col-md-12 bg-info' style="height:85%;" id='history_list'>
+
+        <div class='col-md-12 bg-info' style="height:85%;overflow:auto;" id='history_list'>
           {% block history %} {% include '_contact_history.html' %} {% endblock %}
         </div>
-        
+        <img id='prop' src="{% static 'gui/img/egg.png' %}" class='hidden' style='position:absolute;'>
         <div class='col-md-12' style="height:15%;" id='message_form'>
           {% block send_form %} {% include '_send_form.html' %} {% endblock %}
         </div>

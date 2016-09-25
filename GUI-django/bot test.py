@@ -16,6 +16,7 @@ client.set_options(service='MessengerProxyServiceImplService', port='MessengerPr
 messeger_name = 'GZGZ2Bot'
 bot_name = 'Telegram'
 contact_name = 'GZGroup'
+text = 'Hello me!'
 b = client.service.getMessengers(bot_name)
 for i in b[1]:
     if i.name == messeger_name:
@@ -26,8 +27,12 @@ for i in c[1]:
         contact_id = i.id
 d = client.service.getHistory(messeger_id, contact_id)
 hist = []
-for i in d[1]:
-    print(i.message)
+print(d[1])
+for history_list in d[1]:
+    history_time = str(history_list.message.date.strftime('%Y-%m-%d %H:%M:%S'))
+    hist.append([history_list.message.direction, history_time, history_list.message.text])
+hist.sort(key=lambda t: t[1])
+print(hist)
 #c = client.service.getChats(meeseger_id)
 #contacts = []
 #if c[1] != []:
