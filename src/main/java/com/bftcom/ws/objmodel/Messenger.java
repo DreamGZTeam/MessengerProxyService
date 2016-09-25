@@ -113,8 +113,10 @@ public class Messenger implements IMessenger, Serializable {
     chat.addContact(new Contact(update.getContactId(), update.getFirstName(), update.getLastName(), update.getUserName()));
 
     TextMessage outgoingMessage = new TextMessage(incomingMessage.getText());
-    messageProcessor.handleMessage(outgoingMessage);
-    sendTextMessage(chat.getId(), outgoingMessage.getText());
+    if (messageProcessor.hasActiveHandlers()) {
+      messageProcessor.handleMessage(outgoingMessage);
+      sendTextMessage(chat.getId(), outgoingMessage.getText());
+    }
     save();
   }
 

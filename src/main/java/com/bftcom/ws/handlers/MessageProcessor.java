@@ -20,6 +20,10 @@ public class MessageProcessor {
     }
   }
 
+  public boolean hasActiveHandlers(){
+    return messageHandlersChain.stream().filter(h -> h.active).count() > 0;
+  }
+
   public List<AbstractHandler> getMessageHandlersChain() {
     return messageHandlersChain;
   }
