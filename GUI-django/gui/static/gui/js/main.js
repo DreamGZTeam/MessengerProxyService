@@ -66,7 +66,7 @@ function protocol(s_protocol){
     });
     $('#history_list .col-md-12').remove();
     $('#contact_list .col-md-12').remove();
-    $('#menu_handler p').remove();
+    $('#menu_handler button').remove();
 };
 
 // делаем мессейджер активным и получаем контакты для него
@@ -87,7 +87,7 @@ function messeger(s_protocol,s_messeger) {
         type : "GET", 
         data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id},
         success : function(json){
-            $('#menu_handler p').remove();
+            $('#menu_handler button').remove();
             $('#menu_handler').append(json);
         }
     });
@@ -122,8 +122,8 @@ function history(s_protocol, s_messeger, s_contact) {
         }
 
     });
-    var height = $('#history_list').height();
-    $('#history_list').animate({'scrollTop':height}, 'slow');
+    //var height = $('#history_list').height();
+    $('#history_list').animate({'scrollTop':9999}, 'slow');
 
        //var timeID = setInterval(history(s_protocol, s_messeger, s_contact), 1000);
 };

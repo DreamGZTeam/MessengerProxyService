@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from gui import views
 
-app_name = 'kpi'
+app_name = 'gui'
 urlpatterns = [
     url(r'^$', views.main, name='main'),
     url(r'^protocol', views.protocol, name='protocol'),
