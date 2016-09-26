@@ -13,9 +13,19 @@ public abstract class AbstractHandler implements IMessageHandler, Serializable {
   public String name;
   public String id;
   public boolean active;
+  private boolean authFlag;
 
   public AbstractHandler() {
     active = false;
+    authFlag = false;
+  }
+
+  public boolean isAuthFlag() {
+    return authFlag;
+  }
+
+  public void setAuthFlag(boolean authFlag) {
+    this.authFlag = authFlag;
   }
 
   public void init(Configurator.Config cfg){

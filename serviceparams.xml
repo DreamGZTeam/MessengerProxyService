@@ -13,6 +13,7 @@
                 <javaclass>com.bftcom.ws.handlers.auth.AuthHandler</javaclass>
                 <name>Auth</name>
                 <id>1927cd11-d53f-41ef-84ee-df036e9988b5</id>
+                <auth>true</auth>
             </Handler>
             <Handler>
                 <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateRuEnHandler</javaclass>
@@ -40,13 +41,6 @@
         <name>SlackBot</name>
         <protocol>Slack</protocol>
         <token><![CDATA[eG94Yi04MjA4MzAyNzQ1OS1qN0xESjZZelhCSjZZUVEwZE9EbGdEVVQ=]]></token>
-        <Handlers>
-            <Handler>
-                <javaclass>com.bftcom.ws.handlers.eliza.ElizaMessageHandler</javaclass>
-                <name>Eliza</name>
-                <id>f0179594-18ad-4d65-9769-dfcfe6d48ea2</id>
-            </Handler>
-        </Handlers>
         <Storage>
             <javaclass>com.bftcom.ws.storages.XMLStorage</javaclass>
             <name>XMLStorage</name>

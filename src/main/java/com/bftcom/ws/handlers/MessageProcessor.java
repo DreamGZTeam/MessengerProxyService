@@ -19,6 +19,8 @@ public class MessageProcessor {
     for (IMessageHandler handler : messageHandlersChain.stream().filter(h->h.active).collect(Collectors.toList())) {
       if (handler.handleMessage(inMessage))
         responseRequired = true;
+      if (handler instanceof AbstractHandler && (((AbstractHandler) handler).isAuthFlag())
+        break;
     }
     return responseRequired;
   }

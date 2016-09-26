@@ -1,5 +1,6 @@
 package com.bftcom.ws.handlers.auth;
 
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.AbstractHandler;
 import com.bftcom.ws.objmodel.Message;
 import com.bftcom.ws.objmodel.TextMessage;
@@ -45,5 +46,11 @@ public class AuthHandler extends AbstractHandler {
     String token = UUID.randomUUID().toString();
     cachedAuthTokens.add(token);
     return token;
+  }
+
+  @Override
+  public void init(Configurator.Config cfg) {
+    if (cfg.getParam("auth") != null)
+    setAuthFlag(Boolean.parseBoolean(cfg.getParam("auth")));
   }
 }
