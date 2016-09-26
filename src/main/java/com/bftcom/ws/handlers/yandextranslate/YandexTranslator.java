@@ -1,5 +1,6 @@
 package com.bftcom.ws.handlers.yandextranslate;
 
+import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.AbstractHandler;
 import com.bftcom.ws.objmodel.Message;
 import com.bftcom.ws.objmodel.TextMessage;
@@ -24,14 +25,16 @@ import java.util.List;
 /**
  * Created by Artem on 25.09.2016.
  */
-public class YandexTranslateEnRuHandler extends AbstractHandler {
+public class YandexTranslator extends AbstractHandler {
+
+  private String key;
+  private String lang;
   @Override
   public boolean handleMessage(Message inMessage) {
     if (inMessage.getMessageType() == Message.MESSAGE_TYPE_TEXT) {
 
       try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-        String key = "trnsl.1.1.20160925T185539Z.b069bd6665aa90fd.a6144a205921c3a88f66f6b80464265db8c2936b";
-        String url = "https://translate.yandex.net/api/v1.5/tr.json/translate?" + "key=" + key + "&lang=ru";
+        String url = "https://translate.yandex.net/api/v1.5/tr.json/translate?" + "key=" + key + "&lang=" + lang;
         HttpPost post = new HttpPost(url);
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
@@ -57,5 +60,11 @@ public class YandexTranslateEnRuHandler extends AbstractHandler {
       }
     }
     return true;
+  }
+
+  @Override
+  public void init(Configurator.Config cfg) {
+    key = cfg.getParam("key");
+    lang = cfg.getParam("lang");
   }
 }

@@ -10,15 +10,11 @@
         <token><![CDATA[MjkxMjY2NTAzOkFBSFA0bldjMzJiNzIwTkhxQlA1NjUwbVJwMGtMQ294ZDNn]]></token>
         <Handlers>
             <Handler>
-                <javaclass>com.bftcom.ws.handlers.auth.AuthHandler</javaclass>
-                <name>Auth</name>
-                <id>1927cd11-d53f-41ef-84ee-df036e9988b5</id>
-                <auth>true</auth>
-            </Handler>
-            <Handler>
-                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateRuEnHandler</javaclass>
+                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslator</javaclass>
                 <name>YandexTranslateRuEn</name>
                 <id>7abcc032-fc99-467a-ad75-2fbeefdbefdd</id>
+                <key>trnsl.1.1.20160925T185539Z.b069bd6665aa90fd.a6144a205921c3a88f66f6b80464265db8c2936b</key>
+                <lang>eng</lang>
             </Handler>
             <Handler>
                 <javaclass>com.bftcom.ws.handlers.eliza.ElizaMessageHandler</javaclass>
@@ -26,9 +22,11 @@
                 <id>f0179594-18ad-4d65-9769-dfcfe6d48ea2</id>
             </Handler>
             <Handler>
-                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateEnRuHandler</javaclass>
+                <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslator</javaclass>
                 <name>YandexTranslateEnRu</name>
                 <id>c21cea96-29f2-46c7-bf25-61da2841c05b</id>
+                <key>trnsl.1.1.20160925T185539Z.b069bd6665aa90fd.a6144a205921c3a88f66f6b80464265db8c2936b</key>
+                <lang>ru</lang>
             </Handler>
         </Handlers>
         <Storage>
@@ -41,6 +39,12 @@
         <name>SlackBot</name>
         <protocol>Slack</protocol>
         <token><![CDATA[eG94Yi04MjA4MzAyNzQ1OS1qN0xESjZZelhCSjZZUVEwZE9EbGdEVVQ=]]></token>
+        <Handler>
+            <javaclass>com.bftcom.ws.handlers.auth.AuthHandler</javaclass>
+            <name>Auth</name>
+            <id>1927cd11-d53f-41ef-84ee-df036e9988b5</id>
+            <auth>true</auth>
+        </Handler>
         <Storage>
             <javaclass>com.bftcom.ws.storages.XMLStorage</javaclass>
             <name>XMLStorage</name>
