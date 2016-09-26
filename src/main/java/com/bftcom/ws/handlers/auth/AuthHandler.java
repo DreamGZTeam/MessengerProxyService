@@ -24,8 +24,8 @@ public class AuthHandler extends AbstractHandler {
       String text = textMessage.getText();
       if (authContactIds.contains(inMessage.getContactId())) {
         return false;
-      } else if (text.startsWith("/register ")) {
-        String key = text.substring(10);
+      } else if (text.startsWith("//register ")) {
+        String key = text.substring(11);
         if (cachedAuthTokens.contains(key)) {
           cachedAuthTokens.remove(key);
           authContactIds.add(inMessage.getContactId());

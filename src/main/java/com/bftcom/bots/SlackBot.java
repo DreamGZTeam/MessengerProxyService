@@ -19,7 +19,7 @@ import java.net.Proxy;
 import static com.bftcom.ws.objmodel.Message.MESSAGE_TYPE_TEXT;
 
 public class SlackBot implements IBot {
-  //Токен закодирован в base64, чтобы ботов не банили после заливки кода на github
+  //РўРѕРєРµРЅ Р·Р°РєРѕРґРёСЂРѕРІР°РЅ РІ base64, С‡С‚РѕР±С‹ Р±РѕС‚РѕРІ РЅРµ Р±Р°РЅРёР»Рё РїРѕСЃР»Рµ Р·Р°Р»РёРІРєРё РєРѕРґР° РЅР° github
   private String bot_token;
   private String bot_userName;
   private String bot_protocol;
@@ -49,7 +49,7 @@ public class SlackBot implements IBot {
   private SlackMessagePostedListener messageListener = new SlackMessagePostedListener() {
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
-      //Сообщения от ботов не принимаем
+      //РЎРѕРѕР±С‰РµРЅРёСЏ РѕС‚ Р±РѕС‚РѕРІ РЅРµ РїСЂРёРЅРёРјР°РµРј
       if (event.getSender().isBot())
         return;
 
