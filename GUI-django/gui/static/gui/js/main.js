@@ -119,10 +119,12 @@ function history(s_protocol, s_messeger, s_contact) {
             $('#contact_list p').css({'background-color' : ''});
             $(s_contact).css({'background-color': '#2871af', 'border-radius' : '5px'});
         }
+
     });
-    var height = $('#history_list.col-md-12.bg-info').height();
-    $('#history_list.col-md-12.bg-info').animate({'scrollTop':height}, 'slow');
-    //var timeID = setInterval(history(s_protocol, s_messeger, s_contact), 1000);
+    var height = $('#history_list').height();
+    $('#history_list').animate({'scrollTop':height}, 'slow');
+
+       //var timeID = setInterval(history(s_protocol, s_messeger, s_contact), 1000);
 };
 
 // Меняем состояние хендлера
