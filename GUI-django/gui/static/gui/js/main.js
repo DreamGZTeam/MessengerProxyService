@@ -121,7 +121,7 @@ function history(s_protocol, s_messeger, s_contact) {
         }
     });
     var height = $('#history_list.col-md-12.bg-info').height();
-    $('#history_list.col-md-12.bg-info').animate({'scrollDown':height}, 'slow');
+    $('#history_list.col-md-12.bg-info').animate({'scrollTop':height}, 'slow');
     //var timeID = setInterval(history(s_protocol, s_messeger, s_contact), 1000);
 };
 
