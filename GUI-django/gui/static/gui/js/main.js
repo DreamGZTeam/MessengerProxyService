@@ -66,6 +66,7 @@ function protocol(s_protocol){
     });
     $('#history_list .col-md-12').remove();
     $('#contact_list .col-md-12').remove();
+    $('#menu_handler p').remove();
 };
 
 // делаем мессейджер активным и получаем контакты для него
