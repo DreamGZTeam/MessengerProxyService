@@ -50,7 +50,8 @@ public class AuthHandler extends AbstractHandler {
 
   @Override
   public void init(Configurator.Config cfg) {
+    super.init(cfg);
     if (cfg.getParam("auth") != null)
-    setAuthFlag(Boolean.parseBoolean(cfg.getParam("auth")));
+      setAuthFlag(Boolean.parseBoolean(cfg.getParam("auth")));
   }
 }
