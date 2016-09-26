@@ -18,11 +18,12 @@ $(document).ready(function () {
         window.s_contact = s_contact;
         history(s_protocol, s_messeger, s_contact);
     });
-
+//Отправка сообщения
     $('#message_form').on('submit', function(){
         var message_text = $('textarea').val();
         message_send(s_protocol, s_messeger, s_contact, message_text);
     });
+//Выбор хендлера
     $('#menu_handler').on('click', 'p', function(){
         var s_handler = this;
         window.s_handler = s_handler;
@@ -50,7 +51,6 @@ function protocol(s_protocol){
         data : {'protocol_name': s_protocol.id},
         success : function(json){
             $('#menu_messeger').append(json);
-            $('#menu_protocol p').css({'background-color' : ''});
         }
     });
     $('#history_list .col-md-12').remove();
