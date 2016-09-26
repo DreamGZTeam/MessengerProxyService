@@ -86,7 +86,7 @@ function messeger(s_protocol,s_messeger) {
         type : "GET", 
         data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id},
         success : function(json){
-            $('#menu_handler button').remove();
+            $('#menu_handler p').remove();
             $('#menu_handler').append(json);
         }
     });
