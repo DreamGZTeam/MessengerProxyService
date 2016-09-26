@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 // делаем протокол активным и отображаем доступные для него мессейджеры
 function protocol(s_protocol){
-    $('#menu_messeger button').remove();
+    $('#menu_messeger').children().remove();
     $('#menu_protocol p').css({'background-color' : ''});
     $(s_protocol).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
     $.ajax({
@@ -66,7 +66,7 @@ function protocol(s_protocol){
     });
     $('#history_list .col-md-12').remove();
     $('#contact_list .col-md-12').remove();
-    $('#menu_handler button').remove();
+    $('#menu_handler').children().remove();
 };
 
 // делаем мессейджер активным и получаем контакты для него
@@ -87,7 +87,7 @@ function messeger(s_protocol,s_messeger) {
         type : "GET", 
         data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id},
         success : function(json){
-            $('#menu_handler button').remove();
+            $('#menu_handler').children().remove();
             $('#menu_handler').append(json);
         }
     });
