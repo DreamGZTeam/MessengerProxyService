@@ -36,8 +36,7 @@ $(document).ready(function () {
             $('#prop').removeClass('show');
             $('#prop').addClass('hidden');
         }
-    });
-
+    }); 
 });
 
 // делаем протокол активным и отображаем доступные для него мессейджеры
@@ -53,7 +52,9 @@ function protocol(s_protocol){
             $('#menu_messeger').append(json);
             $('#menu_protocol p').css({'background-color' : ''});
         }
-    }); 
+    });
+    $('#history_list .col-md-12').remove();
+    $('#contact_list .col-md-12').remove();
 };
 
 // делаем мессейджер активным и получаем контакты для него
@@ -77,7 +78,8 @@ function messeger(s_protocol,s_messeger) {
             $('#menu_handler button').remove();
             $('#menu_handler').append(json);
         }
-    }); 
+    });
+    $('#history_list .col-md-12').remove(); 
 };
 
 //Отправка сообщения
@@ -96,6 +98,7 @@ function message_send(s_protocol, s_messeger, s_contact, message_text) {
 
 //получаем историю по выбранному контакту
 function history(s_protocol, s_messeger, s_contact) {
+    console.log('call');
     $.ajax({
         url : 'history',
         type : 'GET',
@@ -108,7 +111,8 @@ function history(s_protocol, s_messeger, s_contact) {
         }
     });
     var height = $('#history_list.col-md-12.bg-info').height();
-    $('#history_list.col-md-12.bg-info').animate({'scrollTop':height}, 'slow');
+    $('#history_list.col-md-12.bg-info').animate({'scrollDown':height}, 'slow');
+    //var timeID = setInterval(history(s_protocol, s_messeger, s_contact), 1000);
 };
 
 // Меняем состояние хендлера
