@@ -11,7 +11,7 @@
         <Handlers>
             <Handler>
                 <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslator</javaclass>
-                <name>YandexTranslator (RU-ENG)</name>
+                <name>Translator (RU-ENG)</name>
                 <id>7abcc032-fc99-467a-ad75-2fbeefdbefdd</id>
                 <key>trnsl.1.1.20160925T185539Z.b069bd6665aa90fd.a6144a205921c3a88f66f6b80464265db8c2936b</key>
                 <lang>eng</lang>
@@ -23,7 +23,7 @@
             </Handler>
             <Handler>
                 <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslator</javaclass>
-                <name>YandexTranslator (ENG-RU)</name>
+                <name>Translator (ENG-RU)</name>
                 <id>c21cea96-29f2-46c7-bf25-61da2841c05b</id>
                 <key>trnsl.1.1.20160925T185539Z.b069bd6665aa90fd.a6144a205921c3a88f66f6b80464265db8c2936b</key>
                 <lang>ru</lang>
