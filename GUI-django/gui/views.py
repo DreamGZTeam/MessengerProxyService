@@ -143,3 +143,22 @@ def set_interactive(request):
                 json.dumps({'text' : result}),
                 content_type="application/json"
                 )
+
+def token(request):
+    if request.method == 'GET':
+        messeger_name = request.GET.get('messeger_name') 
+        protocol_name = request.GET.get('protocol_name')
+        handler_name = request.GET.get('handler_name') 
+        b = client.service.getMessengers(protocol_name)
+        for i in b[1]:
+            if i.name == messeger_name:
+                messeger_id = i.id
+        c = client.service.getHandlers(messeger_id)
+        for i in c[1]:
+            if i.name == handler_name:
+                handler_id = i.id
+        token = client.service.generateAuthToken(messeger_id, handler_id)
+        return HttpResponse(
+                    json.dumps({'token' : token[1]}),
+                    content_type="application/json"
+                    )

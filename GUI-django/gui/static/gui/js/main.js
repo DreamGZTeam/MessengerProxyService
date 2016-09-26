@@ -28,6 +28,13 @@ $(document).ready(function () {
         var s_handler = this;
         window.s_handler = s_handler;
         handler(s_protocol, s_messeger, s_handler);
+        if (s_handler.id ='Auth') {
+            $('#token').removeClass('hidden');
+            $('#token').addClass('active');
+        } else {
+            $('#token').removeClass('active');
+            $('#token').addClass('hidden');
+        }
     });
     $('#inc').on('click', 'a', function(){
         if ($('#prop').hasClass('hidden')) {
@@ -37,6 +44,10 @@ $(document).ready(function () {
             $('#prop').removeClass('show');
             $('#prop').addClass('hidden');
         }
+    });
+
+    $('#token').on('click', function(){
+        token(s_protocol, s_messeger, s_handler);
     }); 
 });
 
@@ -98,7 +109,6 @@ function message_send(s_protocol, s_messeger, s_contact, message_text) {
 
 //получаем историю по выбранному контакту
 function history(s_protocol, s_messeger, s_contact) {
-    console.log('call');
     $.ajax({
         url : 'history',
         type : 'GET',
@@ -106,7 +116,7 @@ function history(s_protocol, s_messeger, s_contact) {
         success : function(json){
             $('#history_list .col-md-12').remove();
             $('#history_list').append(json);
-            $('#contact_list').css({'background-color' : ''});
+            $('#contact_list p').css({'background-color' : ''});
             $(s_contact).css({'background-color': '#2871af', 'border-radius' : '5px'});
         }
     });
@@ -125,6 +135,20 @@ function handler(s_protocol,s_messeger, s_handler) {
         data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id, 'handler_name' : s_handler.id},
         success : function(json){
             $('#handler_status button').text(json['text']);
+        }
+    });
+};
+
+// Получаем токен для хендлера
+function token(s_protocol,s_messeger, s_handler) {
+    $('#menu_handler p').css({'background-color' : ''});
+    $(s_handler).css({'background-color': '#4D5AEA', 'border-radius' : '5px'});
+    $.ajax({
+        url : "token", 
+        type : "GET", 
+        data : {'protocol_name': s_protocol.id, 'messeger_name' : s_messeger.id, 'handler_name' : s_handler.id},
+        success : function(json){
+            alert('Токен для текущего имени = ' + json['token']);
         }
     });
 };

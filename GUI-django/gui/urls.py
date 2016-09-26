@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^history', views.history, name='history'),
     url(r'^message_send', views.message_send, name='message_send'),
     url(r'^handler_list', views.handler_list, name='handler_list'),
-    url(r'^set_interactive', views.set_interactive, name='set_interactive')
+    url(r'^set_interactive', views.set_interactive, name='set_interactive'),
+    url(r'^token', views.token, name='token'),
     ]
