@@ -39,13 +39,13 @@ public class WebServiceConfiguration extends SpringBootServletInitializer {
   }
 
   @Bean
-  public MessengerProxyService weatherService() {
+  public MessengerProxyService messengerProxyService() {
     return new MessengerProxyServiceImpl();
   }
 
   @Bean
   public Endpoint endpoint() {
-    EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
+    EndpointImpl endpoint = new EndpointImpl(springBus(), messengerProxyService());
     endpoint.publish("/MessengerProxyService");
     return endpoint;
   }
