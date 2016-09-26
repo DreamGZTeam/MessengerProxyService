@@ -64,6 +64,7 @@ public class YandexTranslator extends AbstractHandler {
 
   @Override
   public void init(Configurator.Config cfg) {
+    super.init(cfg);
     key = cfg.getParam("key");
     lang = cfg.getParam("lang");
   }
