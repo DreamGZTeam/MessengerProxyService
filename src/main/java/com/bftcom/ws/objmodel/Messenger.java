@@ -93,7 +93,7 @@ public class Messenger implements IMessenger, Serializable {
     if (update == null)
       return;
 
-    // создадим новый чат или если уже есть, возьмем из мапы
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
     String chatId = update.getChatId();
     Chat chat = getChatById(chatId, false);
     if (chat == null) {
@@ -103,7 +103,7 @@ public class Messenger implements IMessenger, Serializable {
       addChat(chatId, chat);
     }
 
-    // добавим в чат новое сообщение и пользователя
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     TextMessage incomingMessage = new TextMessage(
         Date.from(Instant.ofEpochSecond(update.getDate().longValue())),
         DIRECTION_MESSAGE_INCOMING,
@@ -114,8 +114,8 @@ public class Messenger implements IMessenger, Serializable {
 
     TextMessage outgoingMessage = new TextMessage(incomingMessage.getText());
     if (messageProcessor.hasActiveHandlers()) {
-      messageProcessor.handleMessage(outgoingMessage);
-      sendTextMessage(chat.getId(), outgoingMessage.getText());
+      if (messageProcessor.handleMessage(outgoingMessage))
+        sendTextMessage(chat.getId(), outgoingMessage.getText());
     }
     save();
   }

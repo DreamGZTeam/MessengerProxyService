@@ -36,5 +36,5 @@ public abstract class AbstractHandler implements IMessageHandler, Serializable {
   }
 
   @Override
-  public abstract void handleMessage(Message inMessage);
+  public abstract boolean handleMessage(Message inMessage);
 }

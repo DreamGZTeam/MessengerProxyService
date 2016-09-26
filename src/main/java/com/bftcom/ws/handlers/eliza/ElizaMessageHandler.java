@@ -19,11 +19,12 @@ public class ElizaMessageHandler extends AbstractHandler {
   }
 
   @Override
-  public void handleMessage(Message inMessage) {
+  public boolean handleMessage(Message inMessage) {
     if (inMessage.getMessageType() == Message.MESSAGE_TYPE_TEXT) {
       String text = eliza.processInput(((TextMessage) inMessage).getText());
       ((TextMessage) inMessage).setText(text);
     }
+    return true;
   }
 
 

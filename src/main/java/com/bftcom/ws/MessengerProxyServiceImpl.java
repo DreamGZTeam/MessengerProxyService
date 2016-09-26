@@ -5,6 +5,7 @@ import com.bftcom.intf.IMessageHandler;
 import com.bftcom.intf.IStorage;
 import com.bftcom.ws.config.Configurator;
 import com.bftcom.ws.handlers.AbstractHandler;
+import com.bftcom.ws.handlers.auth.AuthHandler;
 import com.bftcom.ws.objmodel.Chat;
 import com.bftcom.ws.objmodel.Contact;
 import com.bftcom.ws.objmodel.MessageInfo;
@@ -105,6 +106,11 @@ public class MessengerProxyServiceImpl implements MessengerProxyService {
   @Override
   public void setHandlerMode(String messengerId, String handlerId, boolean mode) {
     getMessenger(messengerId).getMessageProcessor().getHandler(handlerId).setActive(mode);
+  }
+
+  @Override
+  public String generateAuthToken(String messengerId, String handlerId) {
+    return ((AuthHandler) getMessenger(messengerId).getMessageProcessor().getHandler(handlerId)).generateAuthToken();
   }
 
   private Messenger getMessenger(String messengerId) {

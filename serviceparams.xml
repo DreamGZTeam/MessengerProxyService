@@ -10,6 +10,11 @@
         <token><![CDATA[MjkxMjY2NTAzOkFBSFA0bldjMzJiNzIwTkhxQlA1NjUwbVJwMGtMQ294ZDNn]]></token>
         <Handlers>
             <Handler>
+                <javaclass>com.bftcom.ws.handlers.auth.AuthHandler</javaclass>
+                <name>Auth</name>
+                <id>1927cd11-d53f-41ef-84ee-df036e9988b5</id>
+            </Handler>
+            <Handler>
                 <javaclass>com.bftcom.ws.handlers.yandextranslate.YandexTranslateRuEnHandler</javaclass>
                 <name>YandexTranslateRuEn</name>
                 <id>7abcc032-fc99-467a-ad75-2fbeefdbefdd</id>

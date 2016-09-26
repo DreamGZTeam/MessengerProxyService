@@ -55,4 +55,6 @@ public interface MessengerProxyService {
   /* Включает или выключает указанный обработчик сообщений
   */
   void setHandlerMode(String messengerId, String handlerId, boolean mode);
+
+  String generateAuthToken(String messengerId, String handlerId);
 }

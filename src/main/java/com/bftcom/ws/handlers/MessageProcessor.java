@@ -14,10 +14,13 @@ public class MessageProcessor {
 
   private List<AbstractHandler> messageHandlersChain = new ArrayList<>();
 
-  public void handleMessage(Message inMessage) {
+  public boolean handleMessage(Message inMessage) {
+    boolean responseRequired = false;
     for (IMessageHandler handler : messageHandlersChain.stream().filter(h->h.active).collect(Collectors.toList())) {
-      handler.handleMessage(inMessage);
+      if (handler.handleMessage(inMessage))
+        responseRequired = true;
     }
+    return responseRequired;
   }
 
   public boolean hasActiveHandlers(){

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class YandexTranslateRuEnHandler extends AbstractHandler {
   @Override
-  public void handleMessage(Message inMessage) {
+  public boolean handleMessage(Message inMessage) {
     if (inMessage.getMessageType() == Message.MESSAGE_TYPE_TEXT) {
 
       try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
@@ -56,5 +56,6 @@ public class YandexTranslateRuEnHandler extends AbstractHandler {
         e.printStackTrace();
       }
     }
+    return true;
   }
 }
