@@ -112,7 +112,7 @@ public class XMLStorage implements IStorage {
               chat.getAttribute("name"),
               chat.getAttribute("isGroup").equals("1"));
           //Загружаем историю сообщений
-          NodeList messageHistory = root.getElementsByTagName("History");
+          NodeList messageHistory = chat.getElementsByTagName("History");
           for (int j = 0; j < messageHistory.getLength(); j++) {
             Element history = (Element) messageHistory.item(j);
             int messageType = Integer.parseInt(history.getAttribute("messageType"));
