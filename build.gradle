@@ -51,7 +51,7 @@ dependencies {
 }
 
 task copyConfigFiles(type: Copy) {
-  from('/')
+  from('./')
   into('build/libs')
   include(['serviceparams.xml', 'eliza.script'])
 }
